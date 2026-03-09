@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>STACKLY | Network & Customer Dashboard</title>
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Remix Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      :root {
+        --primary-purple: #2f2a74;
+        --secondary-purple: #5b3c9d;
+        --accent-orange: #ff6a00;
+        --bg-light: #f5f5f7;
+        --text-dark: #1f1f2e;
+        --text-muted: #6b6b8e;
+        --white: #ffffff;
+        --success: #10b981;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+
+        --card-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.05),
+          0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Utility Components */
+      .card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        border: 1px solid rgba(0, 0, 0, 0.02);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Responsive Chart Containers */
+      .chart-container {
+        position: relative;
+        width: 100%;
+        height: 250px;
+        margin-top: auto;
+      }
+
+      .mini-chart-container {
+        position: relative;
+        width: 100%;
+        height: 180px;
+        margin-top: auto;
+      }
+
+      .badge {
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        display: inline-block;
+      }
+
+      .badge-active {
+        background: #e1f9f0;
+        color: var(--success);
+      }
+      .badge-pending {
+        background: #fff4e5;
+        color: var(--warning);
+      }
+      .badge-cancelled {
+        background: #feebeb;
+        color: var(--danger);
+      }
+
+      .priority {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 6px;
+      }
+      .p-high {
+        background: var(--danger);
+        box-shadow: 0 0 8px var(--danger);
+      }
+      .p-medium {
+        background: var(--warning);
+      }
+      .p-low {
+        background: var(--success);
+      }
+
+      /* --- Header Section --- */
+      .header {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        background: var(--white);
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .brand-nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .back-home {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background: #f0f0f7;
+        color: var(--primary-purple);
+        border-radius: 10px;
+        text-decoration: none;
+        transition: var(--transition);
+        flex-shrink: 0;
+      }
+
+      .back-home:hover {
+        background: var(--primary-purple);
+        color: var(--white);
+      }
+
+      .brand-group h1 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary-purple);
+        letter-spacing: -0.5px;
+        line-height: 1.2;
+      }
+
+      .brand-group p {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+      }
+
+      .search-container {
+        position: relative;
+        flex: 1;
+      }
+
+      .search-container i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 1rem;
+      }
+
+      .search-container input {
+        width: 100%;
+        padding: 10px 12px 10px 38px;
+        border-radius: 12px;
+        border: 1px solid #e5e5ef;
+        background: #f9f9fb;
+        outline: none;
+        font-family: inherit;
+        font-size: 0.85rem;
+      }
+
+      .notif-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f9f9fb;
+        border: 1px solid #e5e5ef;
+        cursor: pointer;
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .notif-btn::after {
+        content: "";
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        width: 7px;
+        height: 7px;
+        background: var(--accent-orange);
+        border-radius: 50%;
+        border: 2px solid var(--white);
+      }
+
+      /* --- Main Layout --- */
+      .dashboard-container {
+        padding: 0 15px 40px 15px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      /* --- Stats Grid --- */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .stat-card {
+        padding: 15px;
+      }
+
+      .stat-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        margin-bottom: 8px;
+      }
+
+      .stat-card.purple .stat-icon {
+        background: rgba(91, 60, 157, 0.1);
+        color: var(--secondary-purple);
+      }
+      .stat-card.orange .stat-icon {
+        background: rgba(255, 106, 0, 0.1);
+        color: var(--accent-orange);
+      }
+
+      .stat-value {
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+
+      .stat-label {
+        font-size: 0.65rem;
+        color: var(--text-muted);
+        margin-bottom: 2px;
+      }
+
+      .trend {
+        font-size: 0.6rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .trend.up {
+        color: var(--success);
+      }
+      .trend.down {
+        color: var(--danger);
+      }
+
+      /* --- Section Titles --- */
+      .section-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .section-title a {
+        font-size: 0.7rem;
+        color: var(--secondary-purple);
+        text-decoration: none;
+      }
+
+      /* --- Responsive Content Lists --- */
+      .order-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .order-card {
+        padding: 12px;
+        background: #f9f9fb;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .order-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .order-id {
+        font-size: 0.65rem;
+        color: var(--text-muted);
+      }
+      .order-name {
+        font-weight: 600;
+        font-size: 0.8rem;
+      }
+      .order-plan {
+        font-size: 0.7rem;
+        color: var(--secondary-purple);
+      }
+
+      .desktop-table {
+        display: none;
+      }
+
+      .ticket-item,
+      .message-item {
+        display: flex;
+        align-items: flex-start;
+        padding: 12px 0;
+        border-bottom: 1px solid #f0f0f5;
+      }
+
+      .ticket-item:last-child,
+      .message-item:last-child {
+        border-bottom: none;
+      }
+
+      .ticket-info h4 {
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+      .ticket-info p {
+        font-size: 0.65rem;
+        color: var(--text-muted);
+      }
+
+      .avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: var(--bg-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.75rem;
+        color: var(--primary-purple);
+        flex-shrink: 0;
+        margin-right: 12px;
+      }
+
+      .msg-content {
+        flex: 1;
+        min-width: 0;
+      }
+      .msg-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .msg-name {
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+      .msg-time {
+        font-size: 0.6rem;
+        color: var(--text-muted);
+      }
+      .msg-preview {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* --- Responsive Breakpoints --- */
+
+      /* Tablet Layout */
+      @media (min-width: 768px) {
+        .dashboard-container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+        .header {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          padding: 15px 30px;
+        }
+        .header-actions {
+          width: auto;
+          min-width: 300px;
+        }
+        .stats-grid {
+          grid-column: span 2;
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .chart-section {
+          grid-column: span 2;
+        }
+      }
+
+      /* Desktop Layout */
+      @media (min-width: 1024px) {
+        .header {
+          padding: 20px 40px;
+        }
+        .brand-group h1 {
+          font-size: 1.4rem;
+        }
+        .header-actions {
+          min-width: 450px;
+        }
+        .back-home {
+          width: 42px;
+          height: 42px;
+        }
+
+        .dashboard-container {
+          padding: 0 40px 40px 40px;
+          grid-template-columns: repeat(12, 1fr);
+          gap: 24px;
+        }
+
+        .stats-grid {
+          grid-column: span 12;
+        }
+        .chart-section {
+          grid-column: span 8;
+        }
+        .traffic-section {
+          grid-column: span 4;
+        }
+        .orders-section {
+          grid-column: span 8;
+        }
+        .messages-section {
+          grid-column: span 4;
+        }
+
+        /* Switch to Table for Desktop */
+        .order-list {
+          display: none;
+        }
+        .desktop-table {
+          display: table;
+          width: 100%;
+          border-collapse: collapse;
+        }
+        .desktop-table th {
+          text-align: left;
+          font-size: 0.7rem;
+          text-transform: uppercase;
+          color: var(--text-muted);
+          padding: 12px 10px;
+          border-bottom: 1px solid #f0f0f5;
+        }
+        .desktop-table td {
+          padding: 14px 10px;
+          font-size: 0.8rem;
+          border-bottom: 1px solid #f0f0f5;
+        }
+
+        .chart-container {
+          height: 300px;
+        }
+        .mini-chart-container {
+          height: 220px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="header">
+      <div class="brand-nav">
+        <a href="./home2.html" class="back-home" title="Back to Home">
+          <i class="ri-arrow-left-line"></i>
+        </a>
+        <div class="brand-group">
+          <h1>STACKLY Dashboard</h1>
+          <p>Network & Customer Intel</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="search-container">
+          <i class="ri-search-line"></i>
+          <input type="text" placeholder="Search data..." />
+        </div>
+        <button class="notif-btn">
+          <i class="ri-notification-3-line"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="dashboard-container">
+      <!-- Statistics Cards -->
+      <section class="stats-grid">
+        <div class="card stat-card purple">
+          <div class="stat-icon"><i class="ri-team-line"></i></div>
+          <div class="stat-label">Total Users</div>
+          <div class="stat-value">12,842</div>
+          <div class="trend up"><i class="ri-arrow-up-s-line"></i> 8.4%</div>
+        </div>
+        <div class="card stat-card orange">
+          <div class="stat-icon"><i class="ri-pulse-line"></i></div>
+          <div class="stat-label">Active Conns</div>
+          <div class="stat-value">11,209</div>
+          <div class="trend up"><i class="ri-arrow-up-s-line"></i> 12.1%</div>
+        </div>
+        <div class="card stat-card purple">
+          <div class="stat-icon">
+            <i class="ri-money-dollar-circle-line"></i>
+          </div>
+          <div class="stat-label">Monthly Rev</div>
+          <div class="stat-value">$84,200</div>
+          <div class="trend up"><i class="ri-arrow-up-s-line"></i> 5.2%</div>
+        </div>
+        <div class="card stat-card orange">
+          <div class="stat-icon"><i class="ri-ticket-2-line"></i></div>
+          <div class="stat-label">Support Tickets</div>
+          <div class="stat-value">42</div>
+          <div class="trend down">
+            <i class="ri-arrow-down-s-line"></i> 2.4%
+          </div>
+        </div>
+      </section>
+
+      <!-- Network Performance Chart -->
+      <section class="chart-section content-section">
+        <div class="card">
+          <div class="section-title">
+            <span>Usage Analytics</span>
+            <a href="#">Export</a>
+          </div>
+          <div class="chart-container">
+            <canvas id="usageChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Daily Traffic Mini Chart -->
+      <section class="traffic-section content-section">
+        <div class="card">
+          <div class="section-title">Daily Traffic</div>
+          <div class="mini-chart-container">
+            <canvas id="trafficChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent Orders -->
+      <section class="orders-section content-section">
+        <div class="card">
+          <div class="section-title">
+            <span>Recent Orders</span>
+            <a href="#">View All</a>
+          </div>
+
+          <!-- Mobile List -->
+          <div class="order-list">
+            <div class="order-card">
+              <div class="order-row">
+                <span class="order-id">#STK-9921</span>
+                <span class="badge badge-active">Active</span>
+              </div>
+              <div class="order-name">Jonathan Wick</div>
+              <div class="order-plan">GigaFiber Pro 1Gbps</div>
+            </div>
+            <div class="order-card">
+              <div class="order-row">
+                <span class="order-id">#STK-9918</span>
+                <span class="badge badge-pending">Pending</span>
+              </div>
+              <div class="order-name">Sarah Jenkins</div>
+              <div class="order-plan">Home Lite 100Mbps</div>
+            </div>
+          </div>
+
+          <!-- Desktop Table -->
+          <table class="desktop-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Plan Type</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#STK-9921</td>
+                <td>Jonathan Wick</td>
+                <td>GigaFiber Pro 1Gbps</td>
+                <td><span class="badge badge-active">Active</span></td>
+              </tr>
+              <tr>
+                <td>#STK-9918</td>
+                <td>Sarah Jenkins</td>
+                <td>Home Lite 100Mbps</td>
+                <td><span class="badge badge-pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td>#STK-9855</td>
+                <td>Mike Ross</td>
+                <td>Business Ultra 2Gbps</td>
+                <td><span class="badge badge-active">Active</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Messages Section -->
+      <section class="messages-section content-section">
+        <div class="card">
+          <div class="section-title">User Messages</div>
+          <div class="message-list">
+            <div class="message-item">
+              <div class="avatar" style="background: #ffe8d6; color: #ff6a00">
+                AL
+              </div>
+              <div class="msg-content">
+                <div class="msg-header">
+                  <span class="msg-name">Alex Linderson</span>
+                  <span class="msg-time">2m ago</span>
+                </div>
+                <div class="msg-preview">
+                  My router is blinking red since the storm.
+                </div>
+              </div>
+            </div>
+            <div class="message-item">
+              <div class="avatar" style="background: #e0d7ff; color: #5b3c9d">
+                EM
+              </div>
+              <div class="msg-content">
+                <div class="msg-header">
+                  <span class="msg-name">Emma Miller</span>
+                  <span class="msg-time">1h ago</span>
+                </div>
+                <div class="msg-preview">
+                  I'd like to upgrade to the 1Gbps plan.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      Chart.defaults.font.family = "'Poppins', sans-serif";
+      Chart.defaults.color = "#6B6B8E";
+
+      // Usage Analytics Chart
+      const ctxUsage = document.getElementById("usageChart").getContext("2d");
+      const usageGradient = ctxUsage.createLinearGradient(0, 0, 0, 300);
+      usageGradient.addColorStop(0, "rgba(91, 60, 157, 0.3)");
+      usageGradient.addColorStop(1, "rgba(91, 60, 157, 0)");
+
+      new Chart(ctxUsage, {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "Download",
+              data: [65, 59, 80, 81, 56, 95],
+              borderColor: "#5B3C9D",
+              backgroundColor: usageGradient,
+              fill: true,
+              tension: 0.4,
+              pointRadius: 3,
+              borderWidth: 3,
+            },
+            {
+              label: "Upload",
+              data: [28, 48, 40, 19, 86, 27],
+              borderColor: "#FF6A00",
+              borderDash: [5, 5],
+              fill: false,
+              tension: 0.4,
+              pointRadius: 0,
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "top",
+              align: "end",
+              labels: { boxWidth: 8, usePointStyle: true, font: { size: 10 } },
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: { color: "#F0F0F5", drawBorder: false },
+              ticks: { font: { size: 9 } },
+            },
+            x: {
+              grid: { display: false },
+              ticks: { font: { size: 9 } },
+            },
+          },
+        },
+      });
+
+      // Daily Traffic Chart
+      const ctxTraffic = document
+        .getElementById("trafficChart")
+        .getContext("2d");
+      new Chart(ctxTraffic, {
+        type: "bar",
+        data: {
+          labels: ["M", "T", "W", "T", "F", "S", "S"],
+          datasets: [
+            {
+              label: "Users (k)",
+              data: [12, 19, 15, 17, 22, 28, 24],
+              backgroundColor: "#FF6A00",
+              borderRadius: 4,
+              barThickness: "flex",
+              maxBarThickness: 12,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+          },
+          scales: {
+            y: { beginAtZero: true, display: false },
+            x: { grid: { display: false }, ticks: { font: { size: 9 } } },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

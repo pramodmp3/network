@@ -1,0 +1,1675 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STACKLY - Find Your Favorite Packages</title>
+    <!-- GSAP for animations -->
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./foot.css" />
+    <style>
+      :root {
+        --primary-red: #e30613;
+        --navy: #0b0f2b;
+        --deep-blue: #050c2f;
+        --light-bg: #f8f9fa;
+        --card-bg: #f9f7f2;
+        --text-gray: #6b7280;
+        --white: #ffffff;
+        --input-blue: #f0f7ff;
+        --brand-gradient: linear-gradient(135deg, #ff7a18, #ff4d00);
+        --border-color: #e6e6e6;
+      }
+      :root {
+        --stk-primary-red: #e30613;
+        --stk-navy: #0b0f2b;
+        --stk-deep-blue: #050c2f;
+        --stk-light-bg: #f4f4f6;
+        --stk-text-gray: #6b7280;
+        --stk-soft-pink: #fde8ea;
+        --stk-white: #ffffff;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      body {
+        background-color: var(--white);
+        color: var(--navy);
+        overflow-x: hidden;
+      }
+      html,
+      body {
+        overflow-x: hidden;
+        width: 100%;
+      }
+      .pricing-section {
+        width: 100%;
+        padding: 90px 20px;
+        display: flex;
+        justify-content: center;
+        background-color: var(--white);
+      }
+
+      .container {
+        max-width: 1200px;
+        width: 100%;
+      }
+      /* SECTION 1: HERO BANNER */
+      .hero-banner {
+        width: 100%;
+        height: 200px;
+        position: relative;
+        background-image: url("./assets/hero-banner.webp");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: var(--white);
+      }
+
+      .hero-banner::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(11, 15, 43, 0.7);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        padding: 0 20px;
+      }
+
+      .hero-content h1 {
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .breadcrumb {
+        font-size: 13px;
+      }
+      .breadcrumb .home {
+        color: var(--white);
+        text-decoration: none;
+      }
+      .breadcrumb .current {
+        color: var(--primary-red);
+        font-weight: 600;
+      }
+
+      @media (min-width: 768px) {
+        .hero-banner {
+          height: 280px;
+        }
+        .hero-content h1 {
+          font-size: 42px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .hero-banner {
+          height: 350px;
+        }
+        .hero-content h1 {
+          font-size: 56px;
+        }
+      }
+      /* Header Styling */
+      .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .header-label {
+        display: block;
+        font-size: 12px;
+        letter-spacing: 4px;
+        font-weight: 700;
+        color: #ff7a18;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+      }
+
+      .main-heading {
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 1.2;
+        color: var(--navy);
+      }
+
+      .gradient-text {
+        background: var(--brand-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Grid Layout */
+      .layout-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      /* Pricing Rows */
+      .pricing-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .pricing-row {
+        display: flex;
+        flex-direction: column;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        position: relative;
+        opacity: 1;
+        transform: none;
+      }
+
+      .pricing-row:hover {
+        background: var(--white);
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(11, 15, 43, 0.08);
+      }
+
+      /* Left Image Area */
+      .plan-image-area {
+        position: relative;
+        width: 100%;
+        height: 140px;
+        background-size: cover;
+        background-position: center;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .plan-image-area::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(227, 6, 19, 0.85);
+        z-index: 1;
+      }
+
+      .row-basic .plan-image-area {
+        background-image: url("./assets/ab3.webp");
+      }
+      .row-premium .plan-image-area {
+        background-image: url("./assets/ab3.webp");
+      }
+      .row-advanced .plan-image-area {
+        background-image: url("./assets/ab3.webp");
+      }
+
+      .plan-content {
+        position: relative;
+        z-index: 2;
+        color: var(--white);
+      }
+
+      .plan-category {
+        font-size: 10px;
+        letter-spacing: 2px;
+        font-weight: 700;
+        text-transform: uppercase;
+        opacity: 0.9;
+        margin-bottom: 4px;
+      }
+
+      .plan-title {
+        font-size: 20px;
+        font-weight: 700;
+      }
+
+      .plan-desc {
+        font-size: 12px;
+        line-height: 1.4;
+        opacity: 0.85;
+        margin-top: 5px;
+      }
+
+      /* Device Icons Area */
+      .device-area {
+        flex: 1;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .icon-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .icon-box {
+        width: 50px;
+        height: 50px;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        background: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-red);
+      }
+
+      .icon-box svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .icon-label {
+        font-size: 11px;
+        color: var(--text-gray);
+        text-align: center;
+      }
+
+      .plus-sign {
+        color: #cfcfcf;
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+
+      /* Price Area */
+      .price-area {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-top: 1px solid var(--border-color);
+        background: rgba(11, 15, 43, 0.02);
+      }
+
+      .price-tag {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 12px;
+      }
+
+      .amount {
+        font-size: 40px;
+        font-weight: 800;
+        color: var(--navy);
+      }
+
+      .period {
+        font-size: 14px;
+        color: var(--text-gray);
+        margin-left: 4px;
+      }
+
+      /* --- BUTTON HOVER EFFECT: FILL FROM LEFT --- */
+      .buy-btn,
+      .try-btn {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        padding: 0 28px;
+        background: transparent;
+        border: 2px solid #ff4d00;
+        border-radius: 6px;
+        color: #ff4d00;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          color 0.4s ease,
+          transform 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden; /* Critical for fill effect */
+        z-index: 1;
+      }
+
+      /* The filling element */
+      .buy-btn::before,
+      .try-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background: var(--brand-gradient);
+        transition: width 0.4s ease;
+        z-index: -1;
+      }
+
+      .buy-btn:hover,
+      .try-btn:hover {
+        color: var(--white);
+        transform: translateY(-2px);
+      }
+
+      .buy-btn:hover::before,
+      .try-btn:hover::before {
+        width: 100%;
+      }
+
+      /* Specific styles for the promo card button to start white/transparent */
+      .try-btn {
+        border-color: var(--white);
+        color: var(--white);
+        margin-bottom: 30px;
+        width: auto;
+        min-width: 140px;
+      }
+
+      .try-btn::before {
+        background: var(--white);
+      }
+
+      .try-btn:hover {
+        color: var(--primary-red);
+      }
+
+      /* Promo Card */
+      .promo-card {
+        background: var(--deep-blue);
+        border-radius: 20px;
+        padding: 40px;
+        color: var(--white);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 550px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .promo-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+          circle at top right,
+          rgba(227, 6, 19, 0.15),
+          transparent
+        );
+        pointer-events: none;
+      }
+
+      .promo-title {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        z-index: 1;
+      }
+
+      .promo-desc {
+        font-size: 14px;
+        line-height: 1.6;
+        opacity: 0.9;
+        margin-bottom: 25px;
+        z-index: 1;
+      }
+
+      .visual-container {
+        margin-top: auto;
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
+      }
+
+      .wifi-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 10px;
+        color: var(--primary-red);
+      }
+
+      .router-img {
+        width: 220px;
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4));
+      }
+
+      /* Desktop Adjustments */
+      @media (min-width: 992px) {
+        .main-heading {
+          font-size: 42px;
+        }
+
+        .layout-grid {
+          grid-template-columns: 1fr 320px;
+        }
+
+        .pricing-row {
+          flex-direction: row;
+          height: 140px;
+        }
+
+        .plan-image-area {
+          width: 240px;
+          height: 100%;
+        }
+
+        .device-area {
+          padding: 0 30px;
+        }
+
+        .icon-box {
+          width: 60px;
+          height: 60px;
+        }
+
+        .price-area {
+          width: 200px;
+          border-top: none;
+          border-left: 1px solid var(--border-color);
+          background: transparent;
+        }
+
+        .amount {
+          font-size: 48px;
+        }
+      }
+      .stk-pricing-wrapper {
+        padding: 100px 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .stk-main-container {
+        max-width: 1200px;
+        width: 100%;
+      }
+
+      /* Grid Layout */
+      .stk-pricing-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      /* Pricing Card */
+      .stk-plan-card {
+        background: var(--stk-white);
+        border-radius: 30px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+        padding-top: 40px;
+        text-align: center;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: 0.35s cubic-bezier(0.17, 0.67, 0.38, 1.03);
+        position: relative;
+      }
+
+      .stk-plan-card:hover {
+        transform: translateY(-12px);
+      }
+
+      /* Header Content */
+      .stk-label-top {
+        font-size: 12px;
+        letter-spacing: 2px;
+        font-weight: 600;
+        color: var(--stk-text-gray);
+        margin-bottom: 5px;
+        text-transform: uppercase;
+      }
+
+      .stk-plan-name {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--stk-navy);
+        margin-bottom: 20px;
+      }
+
+      /* Price Container */
+      .stk-price-pill {
+        background: var(--stk-light-bg);
+        border-radius: 40px;
+        padding: 8px 18px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0 auto 25px auto;
+      }
+
+      .stk-curr-sym {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--stk-navy);
+        align-self: flex-start;
+        margin-top: 10px;
+      }
+
+      .stk-price-val {
+        font-size: 48px;
+        font-weight: 900;
+        color: var(--stk-navy);
+      }
+
+      .stk-price-period {
+        font-size: 14px;
+        color: var(--stk-text-gray);
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+
+      /* Image Pill Area */
+      .stk-media-capsule {
+        width: 80%;
+        height: 130px;
+        margin: 0 auto 25px auto;
+        border-radius: 70px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .stk-media-capsule img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Featured Card Specifics */
+      .stk-is-featured .stk-media-capsule {
+        border: 6px solid var(--stk-primary-red);
+      }
+
+      /* Icon Row */
+      .stk-service-icons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 25px;
+      }
+
+      .stk-icon-unit {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: var(--stk-light-bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--stk-primary-red);
+        transition: all 0.3s ease;
+      }
+
+      .stk-plan-card:hover .stk-icon-unit {
+        background: var(--stk-soft-pink);
+        transform: scale(1.1);
+      }
+
+      .stk-icon-unit svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* Feature List */
+      .stk-perks-list {
+        padding: 0 20px;
+        margin-bottom: 25px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .stk-perk-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        color: var(--stk-text-gray);
+        margin-bottom: 12px;
+        width: fit-content;
+      }
+
+      .stk-perk-check {
+        color: var(--stk-primary-red);
+        display: flex;
+        align-items: center;
+      }
+
+      /* Footer Text */
+      .stk-billing-meta {
+        margin-bottom: 30px;
+      }
+
+      .stk-tax-notice {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--stk-primary-red);
+        margin-bottom: 4px;
+      }
+
+      .stk-setup-fee {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--stk-navy);
+      }
+
+      /* Bottom Button with Hover Fill Effect */
+      .stk-action-btn {
+        position: relative;
+        width: 100%;
+        height: 60px;
+        border: none;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        font-weight: 700;
+        font-size: 16px;
+        background: var(--stk-navy);
+        color: var(--stk-white);
+        cursor: pointer;
+        overflow: hidden;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.4s ease;
+      }
+
+      .stk-action-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        transition: width 0.4s ease;
+        z-index: -1;
+      }
+
+      .stk-is-featured .stk-action-btn {
+        background: var(--stk-primary-red);
+      }
+
+      .stk-action-btn:hover::before {
+        width: 100%;
+      }
+
+      .stk-action-btn:hover {
+        filter: brightness(1.2);
+      }
+
+      /* Responsive Breakpoints */
+      @media (min-width: 768px) {
+        .stk-pricing-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .stk-pricing-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .stk-is-featured {
+          transform: scale(1.03);
+        }
+        .stk-is-featured:hover {
+          transform: scale(1.03) translateY(-12px);
+        }
+      }
+      @media (max-width: 768px) {
+        .stk-perks-list {
+          padding: 0 20px;
+        }
+
+        .stk-price-pill {
+          padding: 8px 18px;
+        }
+
+        .stk-media-capsule {
+          width: 85%;
+          max-width: 280px;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./foot.css" />
+  </head>
+  <body>
+    <header class="navbar" id="mainNavbar">
+      <div class="nav-container">
+        <!-- Logo Image -->
+        <a href="./index.html" class="logo">
+          <img src="./assets/logooo.webp" alt="TelNET Logo" id="logoImg" />
+        </a>
+
+        <!-- Navigation Links -->
+        <ul class="nav-menu" id="navMenu">
+          <li class="nav-item">
+            <a class="nav-link"
+              >HOME <i class="fa-solid fa-chevron-down"></i
+            ></a>
+            <ul class="dropdown">
+              <li><a href="./index.html">HOME 1</a></li>
+              <li><a href="./home2.html">HOME 2</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="./about.html" class="nav-link">ABOUT US</a>
+          </li>
+          <li class="nav-item">
+            <a href="./service.html" class="nav-link">SERVICES</a>
+          </li>
+          <li class="nav-item">
+            <a href="./pricing.html" class="nav-link">PRICING</a>
+          </li>
+          <li class="nav-item">
+            <a href="./contact.html" class="nav-link">CONTACT</a>
+          </li>
+          <!-- Contact Us as a Button -->
+          <li class="nav-item">
+            <a href="./login.html" class="nav-link nav-btn">LOGIN</a>
+          </li>
+        </ul>
+
+        <!-- Mobile Toggle -->
+        <div class="mobile-toggle" id="mobileToggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <!-- Red Action Panel -->
+        <div class="action-panel">
+          <div class="call-section">
+            <div class="call-icon-circle">
+              <i class="fa-solid fa-phone-flip"></i>
+            </div>
+            <div class="call-info">
+              <span class="call-label">Call Us Now</span>
+              <span class="call-number">+880 123 456 789</span>
+            </div>
+          </div>
+
+          <div class="utility-icons">
+            <button class="icon-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <button class="icon-btn">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="cart-badge">0</span>
+            </button>
+          </div>
+
+          <div class="lang-selector">
+            <span class="flag-icon">🇺🇸</span>
+            <span>English</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+    </header>
+    <section class="hero-banner">
+      <div class="hero-content">
+        <h1>PRICING</h1>
+        <div class="breadcrumb">
+          <a href="./index.html" class="home">Home</a>
+          <span style="margin: 0 6px">-</span>
+          <span class="current">Pricing</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing-section">
+      <div class="container">
+        <header class="section-header">
+          <span class="header-label">Budget Friendly Plans</span>
+          <h2 class="main-heading">
+            Find Your Favorite <span class="gradient-text">Packages</span>
+          </h2>
+        </header>
+
+        <div class="layout-grid">
+          <div class="pricing-rows">
+            <!-- Row 1: Basic -->
+            <div class="pricing-row row-basic">
+              <div class="plan-image-area">
+                <div class="plan-content">
+                  <span class="plan-category">Basic</span>
+                  <h3 class="plan-title">Family Pack</h3>
+                  <p class="plan-desc">
+                    Fringilla est ullamcorper eget nulla facilisi etiam.
+                  </p>
+                </div>
+              </div>
+              <div class="device-area">
+                <div class="icon-wrapper">
+                  <div class="icon-box">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect
+                        x="5"
+                        y="2"
+                        width="14"
+                        height="20"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                    </svg>
+                  </div>
+                  <span class="icon-label">Mobile</span>
+                </div>
+                <span class="plus-sign">+</span>
+                <div class="icon-wrapper">
+                  <div class="icon-box">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect
+                        x="2"
+                        y="3"
+                        width="20"
+                        height="14"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <line x1="8" y1="21" x2="16" y2="21"></line>
+                      <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                  </div>
+                  <span class="icon-label">Desktop</span>
+                </div>
+                <span class="plus-sign">+</span>
+                <div class="icon-wrapper">
+                  <div class="icon-box">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect
+                        x="2"
+                        y="7"
+                        width="20"
+                        height="15"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <polyline points="17 2 12 7 7 2"></polyline>
+                    </svg>
+                  </div>
+                  <span class="icon-label">50+ TV</span>
+                </div>
+              </div>
+              <div class="price-area">
+                <div class="price-tag">
+                  <span class="amount">$39</span>
+                  <span class="period">/Month</span>
+                </div>
+                <!-- <button class="buy-btn">Buy Now</button> -->
+              </div>
+            </div>
+
+            <!-- Row 2: Premium -->
+            <div class="pricing-row row-premium">
+              <div class="plan-image-area">
+                <div class="plan-content">
+                  <span class="plan-category">Premium</span>
+                  <h3 class="plan-title">Professional Packs</h3>
+                  <p class="plan-desc">
+                    Suspendisse ultrices gravida dictum fusce ut placerat.
+                  </p>
+                </div>
+              </div>
+              <div class="device-area">
+                <div class="icon-wrapper">
+                  <div class="icon-box">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect
+                        x="5"
+                        y="2"
+                        width="14"
+                        height="20"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                    </svg>
+                  </div>
+                  <span class="icon-label">Mobile</span>
+                </div>
+                <span class="plus-sign">+</span>
+                <div class="icon-wrapper">
+                  <div class="icon-box">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect
+                        x="2"
+                        y="3"
+                        width="20"
+                        height="14"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                    </svg>
+                  </div>
+                  <span class="icon-label">Desktop</span>
+                </div>
+                <span class="plus-sign">+</span>
+                <div class="icon-wrapper">
+                  <div class="icon-box">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                      <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                    </svg>
+                  </div>
+                  <span class="icon-label">Wifi</span>
+                </div>
+              </div>
+              <div class="price-area">
+                <div class="price-tag">
+                  <span class="amount">$59</span>
+                  <span class="period">/Month</span>
+                </div>
+                <!-- <button class="buy-btn">Buy Now</button> -->
+              </div>
+            </div>
+
+            <!-- Row 3: Advanced -->
+            <div class="pricing-row row-advanced">
+              <div class="plan-image-area">
+                <div class="plan-content">
+                  <span class="plan-category">Advanced</span>
+                  <h3 class="plan-title">All-In-One Packs</h3>
+                  <p class="plan-desc">
+                    Consequat mauris nunc congue nisi vitae suscipit tellus.
+                  </p>
+                </div>
+              </div>
+              <div class="device-area">
+                <div class="icon-wrapper">
+                  <div class="icon-box">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <rect
+                        x="5"
+                        y="2"
+                        width="14"
+                        height="20"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                    </svg>
+                  </div>
+                  <span class="icon-label">Mobile</span>
+                </div>
+                <span class="plus-sign">+</span>
+                <div class="icon-wrapper">
+                  <div class="icon-box">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <span class="icon-label">Home</span>
+                </div>
+              </div>
+              <div class="price-area">
+                <div class="price-tag">
+                  <span class="amount">$79</span>
+                  <span class="period">/Month</span>
+                </div>
+                <!-- <button class="buy-btn">Buy Now</button> -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Promo Card -->
+          <div class="promo-container">
+            <div class="promo-card">
+              <h3 class="promo-title">Smart Wi-Fi Connections</h3>
+              <p class="promo-desc">
+                Maecenas molestie urna augue, sed elementum sem preti bendum.
+              </p>
+              <a href="./404.html" style="text-decoration: none">
+                <button class="try-btn">Try Now</button></a
+              >
+              <div class="visual-container">
+                <div id="wifi-signal" class="wifi-icon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                    <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                    <circle cx="12" cy="20" r="1" fill="currentColor"></circle>
+                  </svg>
+                </div>
+                <svg class="router-img" viewBox="0 0 200 120" fill="none">
+                  <rect
+                    x="20"
+                    y="60"
+                    width="160"
+                    height="40"
+                    rx="4"
+                    fill="#1a1a1a"
+                  />
+                  <rect
+                    x="40"
+                    y="20"
+                    width="6"
+                    height="45"
+                    rx="3"
+                    fill="#333"
+                  />
+                  <rect
+                    x="80"
+                    y="10"
+                    width="6"
+                    height="55"
+                    rx="3"
+                    fill="#333"
+                  />
+                  <rect
+                    x="120"
+                    y="10"
+                    width="6"
+                    height="55"
+                    rx="3"
+                    fill="#333"
+                  />
+                  <circle cx="50" cy="80" r="2" fill="#00ff00" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="stk-pricing-wrapper" id="stk-pricing-section">
+      <div class="stk-main-container">
+        <div class="stk-pricing-grid">
+          <!-- Card 1: Easy Surfing -->
+          <article class="stk-plan-card stk-tier-entry">
+            <div class="stk-card-content">
+              <p class="stk-label-top">Easy Surfing</p>
+              <h3 class="stk-plan-name">TV, & Phone</h3>
+
+              <div class="stk-price-pill">
+                <span class="stk-curr-sym">$</span>
+                <span class="stk-price-val">150</span>
+                <span class="stk-price-period">/ PER MONTH</span>
+              </div>
+
+              <div class="stk-media-capsule">
+                <img src="./assets/IT1.webp" alt="Family using tablet" />
+              </div>
+
+              <div class="stk-service-icons">
+                <div class="stk-icon-unit">
+                  <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7l-2 3v1h8v-1l-2-3h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"
+                    />
+                  </svg>
+                </div>
+                <div class="stk-icon-unit">
+                  <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
+                    />
+                  </svg>
+                </div>
+                <div class="stk-icon-unit">
+                  <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              <div class="stk-perks-list">
+                <div class="stk-perk-row">
+                  <span class="stk-perk-check"
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline></svg
+                  ></span>
+                  50 Mbps youtube
+                </div>
+                <div class="stk-perk-row">
+                  <span class="stk-perk-check"
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline></svg
+                  ></span>
+                  Connect Multiple Users
+                </div>
+                <div class="stk-perk-row">
+                  <span class="stk-perk-check"
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline></svg
+                  ></span>
+                  Wifi Router & Prevention
+                </div>
+              </div>
+
+              <div class="stk-billing-meta">
+                <p class="stk-tax-notice">5% VAT Included</p>
+                <p class="stk-setup-fee">Installation Charge: 1500 TK</p>
+              </div>
+            </div>
+            <a href="./404.html" style="text-decoration: none">
+              <button class="stk-action-btn">Get Started</button></a
+            >
+          </article>
+
+          <!-- Card 2: Impression (Featured) -->
+          <article class="stk-plan-card stk-tier-pro stk-is-featured">
+            <div class="stk-card-content">
+              <p class="stk-label-top">Impression</p>
+              <h3 class="stk-plan-name">TV, Broadband & Phone</h3>
+
+              <div class="stk-price-pill">
+                <span class="stk-curr-sym">$</span>
+                <span class="stk-price-val">250</span>
+                <span class="stk-price-period">/ PER MONTH</span>
+              </div>
+
+              <div class="stk-media-capsule">
+                <img src="./assets/web2.webp" alt="Smiling group of people" />
+              </div>
+
+              <div class="stk-service-icons">
+                <div class="stk-icon-unit">
+                  <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7l-2 3v1h8v-1l-2-3h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"
+                    />
+                  </svg>
+                </div>
+                <div class="stk-icon-unit">
+                  <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
+                    />
+                  </svg>
+                </div>
+                <div class="stk-icon-unit">
+                  <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              <div class="stk-perks-list">
+                <div class="stk-perk-row">
+                  <span class="stk-perk-check"
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline></svg
+                  ></span>
+                  100 Mbps youtube
+                </div>
+                <div class="stk-perk-row">
+                  <span class="stk-perk-check"
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline></svg
+                  ></span>
+                  Connect Multiple Users
+                </div>
+                <div class="stk-perk-row">
+                  <span class="stk-perk-check"
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline></svg
+                  ></span>
+                  Wifi Router & Prevention
+                </div>
+              </div>
+
+              <div class="stk-billing-meta">
+                <p class="stk-tax-notice">5% VAT Included</p>
+                <p class="stk-setup-fee">Installation Charge: 1500 TK</p>
+              </div>
+            </div>
+            <a href="./404.html" style="text-decoration: none">
+              <button class="stk-action-btn">Get Started</button></a
+            >
+          </article>
+
+          <!-- Card 3: Advanced -->
+          <article class="stk-plan-card stk-tier-elite">
+            <div class="stk-card-content">
+              <p class="stk-label-top">TV, & Phone</p>
+              <h3 class="stk-plan-name">TV, Broadband & Phone</h3>
+
+              <div class="stk-price-pill">
+                <span class="stk-curr-sym">$</span>
+                <span class="stk-price-val">350</span>
+                <span class="stk-price-period">/ PER MONTH</span>
+              </div>
+
+              <div class="stk-media-capsule">
+                <img src="./assets/about1.webp" alt="People laughing" />
+              </div>
+
+              <div class="stk-service-icons">
+                <div class="stk-icon-unit">
+                  <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7l-2 3v1h8v-1l-2-3h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"
+                    />
+                  </svg>
+                </div>
+                <div class="stk-icon-unit">
+                  <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
+                    />
+                  </svg>
+                </div>
+                <div class="stk-icon-unit">
+                  <svg fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                      d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"
+                    />
+                  </svg>
+                </div>
+              </div>
+
+              <div class="stk-perks-list">
+                <div class="stk-perk-row">
+                  <span class="stk-perk-check"
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline></svg
+                  ></span>
+                  Unlimited Mbps youtube
+                </div>
+                <div class="stk-perk-row">
+                  <span class="stk-perk-check"
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline></svg
+                  ></span>
+                  Connect Multiple Users
+                </div>
+                <div class="stk-perk-row">
+                  <span class="stk-perk-check"
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <polyline points="20 6 9 17 4 12"></polyline></svg
+                  ></span>
+                  Wifi Router & Prevention
+                </div>
+              </div>
+
+              <div class="stk-billing-meta">
+                <p class="stk-tax-notice">5% VAT Included</p>
+                <p class="stk-setup-fee">Installation Charge: 1500 TK</p>
+              </div>
+            </div>
+            <a href="./404.html" style="text-decoration: none">
+              <button class="stk-action-btn">Get Started</button></a
+            >
+          </article>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="container">
+        <!-- Contact Circle Form -->
+        <div class="contact-circle" id="contactCircle">
+          <h3 class="circle-heading">Contact Us</h3>
+          <form class="contact-form" action="./404.html">
+            <input type="text" placeholder="First Name" required />
+            <input type="text" placeholder="Last Name" required />
+            <input type="email" placeholder="Email Address" required />
+            <!-- <input type="tel" placeholder="Phone Number" /> -->
+            <button class="submit-btn">SUBMIT NOW</button>
+          </form>
+          <!-- <button class="submit-btn">SUBMIT NOW</button> -->
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+          <div class="cta-grid">
+            <div><!-- Spacer for circle --></div>
+            <div class="cta-content" id="ctaContent">
+              <h2 class="cta-heading">Let’s Get In Touch</h2>
+              <p class="cta-description">
+                Lorem ipsum dolor sit amet consectetur. Viverra suspendisse ac
+                velit donec.
+              </p>
+            </div>
+          </div>
+
+          <div class="divider" id="divider"></div>
+
+          <!-- Footer Links -->
+          <div class="footer-links-grid">
+            <!-- Col 1 -->
+            <div class="footer-col reveal-col">
+              <div
+                style="
+                  font-size: 24px;
+                  color: white;
+                  font-weight: 800;
+                  margin-bottom: 15px;
+                "
+              >
+                <a href="./index.html" style="text-decoration: none">
+                  <span style="color: var(--stk-primary-red)">STACK</span>LY
+                </a>
+              </div>
+              <p class="footer-about">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
+              </p>
+              <a href="./404.html" class="learn-more">Learn More</a>
+            </div>
+
+            <!-- Col 2 -->
+            <div class="footer-col reveal-col">
+              <ul class="link-list">
+                <a href="./index.html" style="text-decoration: none"
+                  ><li class="link-item">HOME</li></a
+                >
+                <a href="./about.html" style="text-decoration: none">
+                  <li class="link-item">ABOUT US</li></a
+                >
+                <a href="./service.html" style="text-decoration: none"
+                  ><li class="link-item">SERVICES</li></a
+                >
+                <a href="./pricing.html" style="text-decoration: none">
+                  <li class="link-item">PRICING</li></a
+                >
+              </ul>
+            </div>
+
+            <!-- Col 3 -->
+            <div class="footer-col reveal-col">
+              <ul class="link-list">
+                <a href="./404.html" style="text-decoration: none">
+                  <li class="link-item">WORKS</li></a
+                >
+                <a href="./404.html" style="text-decoration: none">
+                  <li class="link-item">STUDIO</li></a
+                >
+                <a href="./404.html" style="text-decoration: none">
+                  <li class="link-item">NEWS</li></a
+                >
+              </ul>
+            </div>
+
+            <!-- Col 4 -->
+            <div class="footer-col reveal-col">
+              <div class="contact-info-heading">Info@Envato.Com</div>
+              <p class="address-text">
+                380 St Kilda Road, Melbourne VIC<br />
+                3004, Australia
+              </p>
+              <div class="social-row">
+                <a href="./404.html" class="social-icon">FB</a>
+                <a href="./404.html" class="social-icon">TL</a>
+                <a href="./404.html" class="social-icon">YT</a>
+                <a href="./404.html" class="social-icon">IN</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+          © 2024 Stackly - Internet Service Provider Theme.
+        </div>
+      </div>
+    </footer>
+    <script src="./nav.js"></script>
+    <script src="./foot.js"></script>
+    <script>
+      gsap.set(".pricing-row", { opacity: 0, y: 50 });
+      gsap.set(".promo-card", { opacity: 0, x: 50 });
+
+      window.onload = function () {
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.to(".pricing-row", {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".pricing-rows",
+            start: "top 95%",
+          },
+        });
+
+        gsap.to(".promo-card", {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".promo-card",
+            start: "top 95%",
+          },
+        });
+
+        gsap.to("#wifi-signal", {
+          y: -20,
+          repeat: -1,
+          yoyo: true,
+          duration: 1.5,
+          ease: "sine.inOut",
+        });
+      };
+
+      // Use unique variables to avoid global scope pollution
+      const stk_pricing_init = () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Initial state
+        gsap.set(".stk-plan-card", {
+          opacity: 0,
+          y: 80,
+        });
+
+        // Entrance animation
+        gsap.to(".stk-plan-card", {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.3,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".stk-pricing-grid",
+            start: "top 80%",
+          },
+        });
+
+        // Interactive button hover states
+        const stk_buttons = document.querySelectorAll(".stk-action-btn");
+        stk_buttons.forEach((btn) => {
+          btn.addEventListener("mouseenter", () => {
+            gsap.to(btn, {
+              scale: 1.02,
+              duration: 0.2,
+              overwrite: true,
+            });
+          });
+          btn.addEventListener("mouseleave", () => {
+            gsap.to(btn, {
+              scale: 1,
+              duration: 0.2,
+              overwrite: true,
+            });
+          });
+        });
+      };
+
+      // Fire after DOM is ready
+      if (
+        document.readyState === "complete" ||
+        document.readyState === "interactive"
+      ) {
+        stk_pricing_init();
+      } else {
+        window.addEventListener("DOMContentLoaded", stk_pricing_init);
+      }
+    </script>
+  </body>
+</html>

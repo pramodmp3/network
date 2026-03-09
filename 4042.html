@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Connection Lost | STACKLY 404</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-purple: #2f2a74;
+        --secondary-purple: #5b3c9d;
+        --accent-orange: #ff6a00;
+        --bg-light: #f5f5f7;
+        --text-dark: #1f1f2e;
+        --white: #ffffff;
+        --primary-gradient: linear-gradient(135deg, #ff7a18, #3b2e7e);
+        --secondary-gradient: linear-gradient(135deg, #ff6a00, #5b3c9d);
+        --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden; /* Lock both axes to prevent any bounce or scroll */
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      /* --- Background Effects --- */
+      .void-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: radial-gradient(
+          circle at 50% 50%,
+          #fcfcfe 0%,
+          #e8e8f2 100%
+        );
+        z-index: -2;
+      }
+
+      .animated-blob {
+        position: absolute;
+        width: 40vw;
+        height: 40vw;
+        min-width: 250px;
+        background: var(--primary-gradient);
+        filter: blur(60px);
+        opacity: 0.1;
+        border-radius: 50%;
+        z-index: -1;
+        pointer-events: none;
+        animation: moveBlob 20s infinite alternate ease-in-out;
+      }
+
+      @keyframes moveBlob {
+        0% {
+          transform: translate(-10%, -10%) scale(1);
+        }
+        100% {
+          transform: translate(10%, 10%) scale(1.1);
+        }
+      }
+
+      .network-particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      /* --- Navbar --- */
+      .navbar {
+        padding: 1.5rem;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        z-index: 10;
+      }
+
+      .logo {
+        font-weight: 800;
+        font-size: 1.25rem;
+        letter-spacing: 2px;
+        color: var(--primary-purple);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo::after {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background-color: var(--accent-orange);
+        border-radius: 50%;
+        margin-left: 4px;
+        box-shadow: 0 0 10px var(--accent-orange);
+      }
+
+      /* --- Main Content --- */
+      .hero {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 1rem;
+        z-index: 5;
+        width: 100%;
+        max-width: 100vw;
+        animation: fadeIn 1.2s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .error-code {
+        font-size: clamp(5rem, 28vw, 14rem);
+        font-weight: 800;
+        line-height: 1;
+        background: var(--secondary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+        filter: drop-shadow(0 10px 15px rgba(91, 60, 157, 0.15));
+        animation: pulseGlow 4s infinite ease-in-out;
+      }
+
+      @keyframes pulseGlow {
+        0%,
+        100% {
+          filter: drop-shadow(0 10px 15px rgba(91, 60, 157, 0.15));
+        }
+        50% {
+          filter: drop-shadow(0 10px 30px rgba(255, 106, 0, 0.3));
+        }
+      }
+
+      .subtitle {
+        font-size: clamp(1rem, 4.5vw, 1.6rem);
+        font-weight: 600;
+        color: var(--primary-purple);
+        max-width: 85%;
+        line-height: 1.3;
+      }
+
+      .description {
+        font-size: clamp(0.8rem, 3.2vw, 0.95rem);
+        margin-top: 1rem;
+        color: #666;
+        max-width: 320px;
+        line-height: 1.5;
+      }
+
+      /* --- Buttons --- */
+      .cta-container {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        width: 100%;
+        max-width: 260px;
+      }
+
+      .btn {
+        padding: 0.9rem 1.2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+        text-align: center;
+        font-size: 0.85rem;
+        border: 2px solid transparent;
+      }
+
+      .btn-primary {
+        background: var(--accent-orange);
+        color: var(--white);
+        box-shadow: 0 8px 15px rgba(255, 106, 0, 0.2);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        border-color: var(--secondary-purple);
+        color: var(--secondary-purple);
+      }
+
+      .btn:active {
+        transform: scale(0.96);
+      }
+
+      /* --- Footer --- */
+      .footer {
+        padding: 1.5rem;
+        font-size: 0.65rem;
+        color: #999;
+        text-align: center;
+        width: 100%;
+      }
+
+      /* --- Decorative SVG Control --- */
+      .signal-icon {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        opacity: 0.15;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Desktop Only Parallax Icons */
+      @media (min-width: 768px) {
+        .cta-container {
+          flex-direction: row;
+          max-width: none;
+          justify-content: center;
+        }
+        .btn {
+          min-width: 180px;
+        }
+        .description {
+          max-width: 450px;
+        }
+        .animated-blob {
+          opacity: 0.15;
+        }
+      }
+
+      .particle {
+        position: absolute;
+        background: var(--secondary-purple);
+        border-radius: 50%;
+        opacity: 0.1;
+        pointer-events: none;
+        animation: drift var(--duration) linear infinite;
+      }
+
+      @keyframes drift {
+        from {
+          transform: translateY(105vh);
+        }
+        to {
+          transform: translateY(-10vh);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="void-background"></div>
+    <div class="animated-blob" style="top: 0; left: 0"></div>
+    <div
+      class="animated-blob"
+      style="
+        bottom: 0;
+        right: 0;
+        background: var(--secondary-gradient);
+        animation-delay: -5s;
+      "
+    ></div>
+
+    <div class="network-particles" id="particle-container"></div>
+
+    <nav class="navbar">
+      <a href="./home2.html" class="logo">STACKLY</a>
+    </nav>
+
+    <main class="hero">
+      <div class="error-code">404</div>
+      <h1 class="subtitle">Connection Lost — The page doesn't exist.</h1>
+      <p class="description">
+        It looks like this signal has disappeared into the network void.
+      </p>
+
+      <div class="cta-container">
+        <a href="./home2.html" class="btn btn-primary">Return to Home</a>
+        <a href="./contact2.html" class="btn btn-secondary">Contact Support</a>
+      </div>
+
+      <!-- Positioned to stay within safe bounds -->
+      <svg
+        class="signal-icon"
+        style="top: 25%; left: 5%"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#5B3C9D"
+        stroke-width="2"
+      >
+        <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+        <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+      </svg>
+
+      <svg
+        class="signal-icon"
+        style="bottom: 25%; right: 5%"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#FF6A00"
+        stroke-width="2"
+      >
+        <rect x="2" y="14" width="20" height="8" rx="2"></rect>
+        <line x1="6" y1="18" x2="6.01" y2="18"></line>
+      </svg>
+    </main>
+
+    <footer class="footer">© 2026 STACKLY Network Solutions</footer>
+
+    <script>
+      const container = document.getElementById("particle-container");
+      const particleCount = 15;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement("div");
+        particle.className = "particle";
+
+        const size = Math.random() * 3 + 2 + "px";
+        const left = Math.random() * 100 + "%";
+        const duration = Math.random() * 15 + 10 + "s";
+        const delay = Math.random() * -20 + "s";
+
+        particle.style.width = size;
+        particle.style.height = size;
+        particle.style.left = left;
+        particle.style.setProperty("--duration", duration);
+        particle.style.animationDelay = delay;
+
+        container.appendChild(particle);
+      }
+
+      // Only use parallax on desktop to avoid layout shifts on mobile
+      if (window.innerWidth >= 768) {
+        document.addEventListener("mousemove", (e) => {
+          const x = (window.innerWidth / 2 - e.pageX) / 80;
+          const y = (window.innerHeight / 2 - e.pageY) / 80;
+
+          document.querySelectorAll(".animated-blob").forEach((blob) => {
+            blob.style.transform = `translate(${x}px, ${y}px)`;
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

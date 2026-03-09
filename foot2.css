@@ -1,0 +1,313 @@
+:root {
+  /* STACKLY Color Palette */
+  --stkly-primary-purple: #2f2a74;
+  --stkly-secondary-purple: #5b3c9d;
+  --stkly-accent-orange: #ff6a00;
+  --stkly-accent-orange-hover: #e55a00;
+  --stkly-bg-dark: #1f1f2e;
+  --stkly-white: #ffffff;
+  --stkly-text-gray: rgba(255, 255, 255, 0.7);
+  --stkly-divider: rgba(255, 255, 255, 0.1);
+  --stkly-input-bg: #2d2d3d;
+
+  /* Transitions */
+  --stkly-transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f4f4f4;
+}
+
+/* --- Footer Wrapper --- */
+.stkly-footer-wrapper {
+  background-color: var(--stkly-bg-dark);
+  color: var(--stkly-white);
+  position: relative;
+  overflow: hidden;
+  padding-top: 80px;
+}
+
+/* Decorative background patterns */
+.stkly-footer-wrapper::before,
+.stkly-footer-wrapper::after {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background-image: radial-gradient(
+    rgba(255, 106, 0, 0.05) 2px,
+    transparent 2px
+  );
+  background-size: 20px 20px;
+  z-index: 1;
+}
+
+.stkly-footer-wrapper::before {
+  top: 20px;
+  left: -50px;
+}
+
+.stkly-footer-wrapper::after {
+  bottom: 50px;
+  right: -50px;
+}
+
+.stkly-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* --- Grid Layout (Mobile-First) --- */
+.stkly-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  margin-bottom: 60px;
+}
+
+/* Tablet (768px+) */
+@media (min-width: 768px) {
+  .stkly-footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .stkly-footer-grid {
+    grid-template-columns: 1.5fr 0.8fr 1fr 1.2fr;
+    gap: 40px;
+  }
+}
+
+/* --- Column Components --- */
+.stkly-footer-logo {
+  height: 38px;
+  margin-bottom: 24px;
+  display: block;
+}
+
+.stkly-footer-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--stkly-text-gray);
+  margin-bottom: 30px;
+  max-width: 380px;
+}
+
+/* --- Newsletter --- */
+.stkly-newsletter-form {
+  position: relative;
+  max-width: 380px;
+  margin-bottom: 12px;
+}
+
+.stkly-newsletter-input {
+  width: 100%;
+  padding: 14px 60px 14px 20px;
+  background-color: var(--stkly-input-bg);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--stkly-white);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: var(--stkly-transition);
+}
+
+.stkly-newsletter-input:focus {
+  border-color: var(--stkly-accent-orange);
+  box-shadow: 0 0 10px rgba(255, 106, 0, 0.2);
+}
+
+.stkly-newsletter-btn {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--stkly-accent-orange);
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--stkly-transition);
+}
+
+.stkly-newsletter-btn:hover {
+  background-color: var(--stkly-accent-orange-hover);
+  box-shadow: 0 0 15px rgba(255, 106, 0, 0.4);
+}
+
+.stkly-newsletter-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+.stkly-helper-text {
+  font-size: 12px;
+  color: var(--stkly-text-gray);
+}
+
+/* --- Link Sections --- */
+.stkly-footer-heading {
+  color: var(--stkly-accent-orange);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-transform: capitalize;
+}
+
+.stkly-footer-links {
+  list-style: none;
+}
+
+.stkly-footer-links li {
+  margin-bottom: 12px;
+}
+
+.stkly-footer-links a {
+  color: var(--stkly-white);
+  text-decoration: none;
+  font-size: 14px;
+  transition: var(--stkly-transition);
+  display: inline-block;
+}
+
+.stkly-footer-links a:hover {
+  color: var(--stkly-accent-orange);
+  transform: translateX(5px);
+}
+
+.stkly-legal-box {
+  margin-top: 30px;
+}
+
+/* --- App Store Column --- */
+.stkly-app-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--stkly-text-gray);
+  margin-bottom: 20px;
+}
+
+.stkly-app-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.stkly-app-badge {
+  height: 40px;
+  border-radius: 6px;
+  background: #000;
+  padding: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--stkly-transition);
+}
+
+.stkly-app-badge:hover {
+  transform: translateY(-3px);
+  border-color: var(--stkly-accent-orange);
+}
+
+/* --- Bottom Bar --- */
+.stkly-footer-divider {
+  height: 1px;
+  background-color: var(--stkly-divider);
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.stkly-footer-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 40px;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .stkly-footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.stkly-copyright {
+  font-size: 14px;
+  color: var(--stkly-text-gray);
+}
+
+/* --- Social Media --- */
+.stkly-social-row {
+  display: flex;
+  gap: 10px;
+}
+
+.stkly-social-icon {
+  width: 36px;
+  height: 36px;
+  background-color: var(--stkly-accent-orange);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  transition: var(--stkly-transition);
+}
+
+.stkly-social-icon:hover {
+  background-color: var(--stkly-accent-orange-hover);
+  transform: translateY(-5px) scale(1.1);
+}
+
+.stkly-social-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* --- Floating Support --- */
+.stkly-support-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 48px;
+  height: 48px;
+  background-color: var(--stkly-accent-orange);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(255, 106, 0, 0.4);
+  cursor: pointer;
+  z-index: 100;
+  transition: var(--stkly-transition);
+  border: none;
+}
+
+.stkly-support-btn:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+
+.stkly-support-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}

@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STACKLY | Premium Navigation</title>
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* --- STACKLY DESIGN TOKENS --- */
+      :root {
+        --stkly-primary-purple: #2f2a74;
+        --stkly-secondary-purple: #5b3c9d;
+        --stkly-accent-orange: #ff6a00;
+        --stkly-light-bg: #f5f5f7;
+        --stkly-dark-text: #1f1f2e;
+        --stkly-white: #ffffff;
+        --stkly-shadow: 0 4px 20px rgba(31, 31, 46, 0.08);
+        --stkly-transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        --stkly-nav-height: 70px;
+      }
+
+      /* --- BASE RESET --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--stkly-light-bg);
+        color: var(--stkly-dark-text);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      /* --- NAVBAR CONTAINER --- */
+      .stkly-main-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: var(--stkly-nav-height);
+        background-color: var(--stkly-white);
+        box-shadow: var(--stkly-shadow);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+      }
+
+      .stkly-nav-wrapper {
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      /* --- LOGO --- */
+      .stkly-logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .stkly-logo-img {
+        height: 40px;
+        width: auto;
+        display: block;
+        /* Placeholder styling since src is empty */
+        background-color: #eee;
+        min-width: 120px;
+        border-radius: 4px;
+        position: relative;
+      }
+
+      .stkly-logo-img::after {
+        content: "STACKLY";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-weight: 700;
+        color: var(--stkly-primary-purple);
+        font-size: 14px;
+      }
+
+      /* --- DESKTOP NAVIGATION (Hidden on Mobile) --- */
+      .stkly-nav-links {
+        display: none; /* Mobile First */
+        gap: 28px;
+        align-items: center;
+      }
+      /* Dropdown Container */
+      .stkly-dropdown {
+        position: relative;
+      }
+
+      /* Dropdown Menu */
+      .stkly-dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        min-width: 160px;
+        display: none;
+        flex-direction: column;
+        border-radius: 6px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        z-index: 999;
+      }
+
+      /* Dropdown Links */
+      .stkly-dropdown-menu a {
+        padding: 12px 16px;
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+        transition: 0.3s;
+      }
+      /* hide submenu by default */
+      .stkly-mobile-submenu {
+        display: none;
+        list-style: none;
+        padding-left: 35px;
+      }
+
+      /* submenu links */
+      .stkly-mobile-submenu a {
+        display: block;
+        padding: 10px 0;
+        font-size: 14px;
+        color: #444;
+        text-decoration: none;
+      }
+
+      /* when dropdown active */
+      .stkly-mobile-dropdown.active .stkly-mobile-submenu {
+        display: block;
+      }
+      /* Hover Effect */
+      .stkly-dropdown-menu a:hover {
+        background: #f5f5f5;
+      }
+
+      /* Show Dropdown */
+      .stkly-dropdown:hover .stkly-dropdown-menu {
+        display: flex;
+      }
+      .stkly-nav-item {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--stkly-dark-text);
+        font-weight: 500;
+        font-size: 15px;
+        transition: var(--stkly-transition);
+      }
+
+      .stkly-nav-item svg {
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+        stroke: currentColor;
+        fill: none;
+        transition: var(--stkly-transition);
+      }
+
+      .stkly-nav-item:hover {
+        color: var(--stkly-accent-orange);
+      }
+
+      .stkly-nav-btn-contact {
+        background-color: var(--stkly-accent-orange);
+        color: var(--stkly-white);
+        padding: 10px 22px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: var(--stkly-transition);
+        display: none; /* Hidden on mobile */
+      }
+
+      .stkly-nav-btn-contact:hover {
+        filter: brightness(1.1);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 106, 0, 0.3);
+      }
+
+      /* --- HAMBURGER TOGGLE --- */
+      .stkly-hamburger-toggle {
+        display: block;
+        cursor: pointer;
+        z-index: 1100;
+        padding: 5px;
+        border: none;
+        background: none;
+        width: 40px;
+        height: 40px;
+        position: relative;
+      }
+
+      .stkly-hamburger-inner {
+        width: 26px;
+        height: 2px;
+        background-color: var(--stkly-primary-purple);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: var(--stkly-transition);
+      }
+
+      .stkly-hamburger-inner::before,
+      .stkly-hamburger-inner::after {
+        content: "";
+        width: 26px;
+        height: 2px;
+        background-color: var(--stkly-primary-purple);
+        position: absolute;
+        left: 0;
+        transition: var(--stkly-transition);
+      }
+
+      .stkly-hamburger-inner::before {
+        top: -8px;
+      }
+      .stkly-hamburger-inner::after {
+        top: 8px;
+      }
+
+      /* Animation when Menu Open */
+      .stkly-is-active .stkly-hamburger-inner {
+        background-color: transparent;
+      }
+      .stkly-is-active .stkly-hamburger-inner::before {
+        top: 0;
+        transform: rotate(45deg);
+        background-color: var(--stkly-white);
+      }
+      .stkly-is-active .stkly-hamburger-inner::after {
+        top: 0;
+        transform: rotate(-45deg);
+        background-color: var(--stkly-white);
+      }
+
+      /* --- MOBILE OVERLAY MENU --- */
+      .stkly-mobile-overlay {
+        position: fixed;
+        top: 0;
+        left: 100%; /* Start off-screen */
+        width: 100%;
+        height: 100vh;
+        background-color: var(--stkly-primary-purple);
+        z-index: 1050;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: var(--stkly-transition);
+        opacity: 0;
+      }
+
+      .stkly-mobile-overlay.stkly-menu-open {
+        left: 0;
+        opacity: 1;
+      }
+
+      /* Dedicated Close Button (X) */
+      .stkly-menu-close-btn {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--stkly-white);
+        transition: var(--stkly-transition);
+        padding: 10px;
+      }
+
+      .stkly-menu-close-btn:hover {
+        color: var(--stkly-accent-orange);
+        transform: rotate(90deg);
+      }
+
+      .stkly-mobile-menu-items {
+        list-style: none;
+        text-align: center;
+      }
+
+      .stkly-mobile-menu-items li {
+        margin: 28px 0;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.4s ease forwards;
+      }
+
+      .stkly-menu-open .stkly-mobile-menu-items li {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Staggered animation for menu items */
+      .stkly-menu-open .stkly-mobile-menu-items li:nth-child(1) {
+        transition-delay: 0.1s;
+      }
+      .stkly-menu-open .stkly-mobile-menu-items li:nth-child(2) {
+        transition-delay: 0.2s;
+      }
+      .stkly-menu-open .stkly-mobile-menu-items li:nth-child(3) {
+        transition-delay: 0.3s;
+      }
+      .stkly-menu-open .stkly-mobile-menu-items li:nth-child(4) {
+        transition-delay: 0.4s;
+      }
+      .stkly-menu-open .stkly-mobile-menu-items li:nth-child(5) {
+        transition-delay: 0.5s;
+      }
+
+      .stkly-mobile-link {
+        text-decoration: none;
+        color: var(--stkly-white);
+        font-size: 22px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--stkly-transition);
+      }
+
+      .stkly-mobile-link svg {
+        width: 24px;
+        height: 24px;
+        margin-right: 12px;
+        stroke: currentColor;
+        fill: none;
+      }
+
+      .stkly-mobile-link:hover {
+        color: var(--stkly-accent-orange);
+      }
+
+      .stkly-mobile-link-contact {
+        background-color: var(--stkly-accent-orange);
+        padding: 14px 40px;
+        border-radius: 8px;
+        margin-top: 10px;
+      }
+
+      .stkly-mobile-link-contact:hover {
+        color: var(--stkly-white);
+        filter: brightness(1.1);
+      }
+
+      /* Body lock when menu open */
+      .stkly-no-scroll {
+        overflow: hidden;
+      }
+
+      /* --- TABLET / DESKTOP BREAKPOINT --- */
+      @media (min-width: 768px) {
+        .stkly-nav-links {
+          display: flex;
+        }
+
+        .stkly-nav-btn-contact {
+          display: inline-block;
+        }
+
+        .stkly-hamburger-toggle {
+          display: none;
+        }
+
+        .stkly-mobile-overlay {
+          display: none;
+        }
+      }
+
+      /* Page Content Mockup */
+      .stkly-content-mock {
+        padding-top: 120px;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="stkly-main-navbar">
+      <div class="stkly-nav-wrapper">
+        <!-- Logo Section -->
+        <div class="stkly-logo-container">
+          <a href="./assets/logo.webp">
+            <img class="stkly-logo-img" alt="STACKLY Logo" />
+          </a>
+        </div>
+
+        <!-- Desktop Nav Links -->
+        <div class="stkly-nav-links" id="stkly-desktop-nav">
+          <div class="stkly-dropdown">
+            <a href="#" class="stkly-nav-item">
+              <svg
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+              HOME
+            </a>
+
+            <div class="stkly-dropdown-menu">
+              <a href="./home1.html">HOME1</a>
+              <a href="./home2.html">HOME2</a>
+            </div>
+          </div>
+          <a href="./products.html" class="stkly-nav-item">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+            PRODUCTS
+          </a>
+          <a href="./blog2.html" class="stkly-nav-item">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            BLOG
+          </a>
+          <a href="./dashboard.html" class="stkly-nav-item">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 3v18h18" />
+              <path d="m19 9-5 5-4-4-3 3" />
+            </svg>
+            DASHBOARD
+          </a>
+          <a href="./contact2.html" class="stkly-nav-btn-contact">CONTACT</a>
+        </div>
+
+        <!-- Hamburger Button -->
+        <button
+          class="stkly-hamburger-toggle"
+          id="stkly-hamburger"
+          aria-label="Open navigation menu"
+        >
+          <span class="stkly-hamburger-inner"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Full Screen Mobile Overlay -->
+    <div class="stkly-mobile-overlay" id="stkly-overlay">
+      <!-- Dedicated Close (X) Button -->
+      <button
+        class="stkly-menu-close-btn"
+        id="stkly-close-btn"
+        aria-label="Close navigation menu"
+      >
+        <svg
+          width="34"
+          height="34"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <ul class="stkly-mobile-menu-items">
+        <li class="stkly-mobile-dropdown">
+          <a href="" class="stkly-mobile-link stkly-mobile-toggle">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            HOME
+          </a>
+
+          <ul class="stkly-mobile-submenu">
+            <li><a href="./home1.html">HOME1</a></li>
+            <li><a href="./home2.html">HOME2</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="./products.html" class="stkly-mobile-link">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+            PRODUCTS
+          </a>
+        </li>
+        <li>
+          <a href="./blog2.html" class="stkly-mobile-link">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            BLOG
+          </a>
+        </li>
+        <li>
+          <a href="./dashboard.html" class="stkly-mobile-link">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 3v18h18" />
+              <path d="m19 9-5 5-4-4-3 3" />
+            </svg>
+            DASHBOARD
+          </a>
+        </li>
+        <li>
+          <a
+            href="./contact2.html"
+            class="stkly-mobile-link stkly-mobile-link-contact"
+            >CONTACT</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const hamburger = document.getElementById("stkly-hamburger");
+        const closeBtn = document.getElementById("stkly-close-btn");
+        const overlay = document.getElementById("stkly-overlay");
+        const body = document.body;
+
+        const menuLinks = document.querySelectorAll(".stkly-mobile-link");
+        const dropdownToggles = document.querySelectorAll(
+          ".stkly-mobile-toggle",
+        );
+
+        /* ---------- OPEN / CLOSE MOBILE MENU ---------- */
+
+        const toggleMenu = () => {
+          hamburger.classList.toggle("stkly-is-active");
+          overlay.classList.toggle("stkly-menu-open");
+          body.classList.toggle("stkly-no-scroll");
+        };
+
+        const closeMenu = () => {
+          hamburger.classList.remove("stkly-is-active");
+          overlay.classList.remove("stkly-menu-open");
+          body.classList.remove("stkly-no-scroll");
+        };
+
+        hamburger.addEventListener("click", toggleMenu);
+        closeBtn.addEventListener("click", closeMenu);
+
+        /* ---------- MOBILE DROPDOWN ---------- */
+
+        dropdownToggles.forEach((toggle) => {
+          toggle.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const parent = this.parentElement;
+
+            parent.classList.toggle("active");
+          });
+        });
+
+        /* ---------- CLOSE MENU WHEN NORMAL LINK CLICKED ---------- */
+
+        menuLinks.forEach((link) => {
+          if (!link.classList.contains("stkly-mobile-toggle")) {
+            link.addEventListener("click", closeMenu);
+          }
+        });
+
+        /* ---------- ESC KEY CLOSE ---------- */
+
+        document.addEventListener("keydown", (e) => {
+          if (
+            e.key === "Escape" &&
+            overlay.classList.contains("stkly-menu-open")
+          ) {
+            closeMenu();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

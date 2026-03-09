@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Xmee | Cinematic Signup</title>
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-red: #e30613;
+        --navy: #0b0f2b;
+        --deep-blue: #050c2f;
+        --light-bg: #f4f4f6;
+        --text-gray: #6b7280;
+        --soft-pink: #fde8ea;
+        --white: #ffffff;
+        --transition-speed: 0.4s;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--light-bg);
+        overflow-x: hidden;
+        color: var(--navy);
+      }
+
+      .login-container {
+        display: flex;
+        min-height: 100vh;
+        width: 100%;
+      }
+
+      /* Left Panel */
+      .left-panel {
+        position: relative;
+        width: 45%;
+        background-image: url("https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=2070");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 60px;
+        color: var(--white);
+        overflow: hidden;
+        z-index: 2;
+      }
+
+      .bg-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(11, 15, 43, 0.85),
+          rgba(227, 6, 19, 0.4)
+        );
+        z-index: 1;
+      }
+
+      .content-wrapper {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        max-width: 450px;
+      }
+
+      .brand-logo {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 2rem;
+        letter-spacing: -2px;
+        color: var(--white);
+      }
+
+      .welcome-heading {
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+      }
+
+      .description {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        opacity: 0.9;
+        margin-bottom: 3rem;
+        color: var(--light-bg);
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .social-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        font-size: 0.9rem;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease;
+      }
+
+      .social-btn:hover {
+        background: var(--primary-red);
+      }
+
+      .pointer-triangle {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
+        border-right: 15px solid var(--white);
+        z-index: 3;
+      }
+
+      /* Right Panel */
+      .right-panel {
+        width: 55%;
+        background: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+      }
+
+      .login-form {
+        width: 100%;
+        max-width: 420px;
+      }
+
+      .form-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: var(--navy);
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--text-gray);
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 10px 0;
+        border: none;
+        border-bottom: 1.5px solid #e5e7eb;
+        font-size: 1rem;
+        outline: none;
+        background: transparent;
+        color: var(--navy);
+        transition: border-color 0.3s ease;
+        transform-origin: left;
+      }
+
+      .password-wrapper {
+        position: relative;
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 0;
+        bottom: 12px;
+        cursor: pointer;
+        color: #9ca3af;
+        font-size: 0.9rem;
+      }
+
+      .form-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .checkbox-container {
+        display: block;
+        position: relative;
+        padding-left: 28px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        color: var(--text-gray);
+        user-select: none;
+      }
+
+      .checkbox-container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 18px;
+        width: 18px;
+        background-color: var(--light-bg);
+        border-radius: 3px;
+      }
+
+      .checkbox-container input:checked ~ .checkmark {
+        background-color: var(--primary-red);
+      }
+
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+
+      .checkbox-container input:checked ~ .checkmark:after {
+        display: block;
+      }
+
+      .checkbox-container .checkmark:after {
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+
+      /* Login Button with Sweep Effect */
+      .login-btn {
+        width: 100%;
+        padding: 15px;
+        background: var(--primary-red);
+        color: var(--white);
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .login-btn span {
+        position: relative;
+        z-index: 2;
+      }
+
+      .login-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--navy);
+        transition: left var(--transition-speed) ease;
+        z-index: 1;
+      }
+
+      .login-btn:hover::before {
+        left: 0;
+      }
+
+      .register-text {
+        margin-top: 25px;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--text-gray);
+      }
+
+      .register-text a {
+        color: var(--primary-red);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      @media (max-width: 768px) {
+        .login-container {
+          flex-direction: column;
+        }
+        .left-panel,
+        .right-panel {
+          width: 100%;
+        }
+        .left-panel {
+          padding: 40px 20px;
+          min-height: 35vh;
+        }
+        .pointer-triangle {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <!-- Left Panel: Cinematic Image & Brand -->
+      <div class="left-panel">
+        <div class="bg-overlay"></div>
+        <div class="content-wrapper">
+          <div class="brand-logo" id="logo">STACKLY</div>
+          <h1 class="welcome-heading" id="welcomeText">
+            Join the stackly Community
+          </h1>
+          <p class="description" id="description">
+            Create your account today and start experiencing the most cinematic
+            interface designed for modern users. Join thousands who trust our
+            platform for their daily operations.
+          </p>
+          <div class="social-icons" id="socialIcons">
+            <a href="./404.html" class="social-btn"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="./404.html" class="social-btn"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="./404.html" class="social-btn"
+              ><i class="fab fa-google-plus-g"></i
+            ></a>
+            <a href="./404.html" class="social-btn"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+            <a href="./404.html" class="social-btn"
+              ><i class="fab fa-youtube"></i
+            ></a>
+          </div>
+        </div>
+        <div class="pointer-triangle"></div>
+      </div>
+
+      <!-- Right Panel: Signup Form -->
+      <div class="right-panel">
+        <form class="login-form" id="signupForm" action="./404.html">
+          <h2 class="form-title" id="formTitle">Create Account</h2>
+
+          <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" placeholder="John Doe" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="demo@gmail.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-wrapper">
+              <input
+                type="password"
+                id="password"
+                placeholder="********"
+                required
+              />
+              <i class="far fa-eye toggle-password" id="togglePassword"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <div class="password-wrapper">
+              <input
+                type="password"
+                id="confirm-password"
+                placeholder="********"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <label class="checkbox-container">
+              <input type="checkbox" required />
+              <span class="checkmark"></span>
+              I agree to Terms & Conditions
+            </label>
+          </div>
+
+          <button type="submit" class="login-btn">
+            <span>Create Account</span>
+          </button>
+
+          <div class="register-text">
+            Already have an account? <a href="./login.html">Log in</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- GSAP Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const tl = gsap.timeline();
+        const welcomeText = document.getElementById("welcomeText");
+        const socialIcons = document.querySelectorAll(".social-btn");
+        const formElements = document.querySelectorAll(
+          ".form-title, .form-group, .form-footer, .login-btn, .register-text",
+        );
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordField = document.getElementById("password");
+
+        // Split text for word animation
+        const textContent = welcomeText.innerText;
+        const words = textContent.split(" ");
+        welcomeText.innerHTML = words
+          .map(
+            (word) =>
+              `<span class="word" style="display:inline-block; margin-right:8px;">${word}</span>`,
+          )
+          .join("");
+
+        // --- ENTRANCE SEQUENCE ---
+        gsap.set(".left-panel", { x: -120, opacity: 0 });
+        gsap.set(".right-panel", { x: 120, opacity: 0 });
+        gsap.set("#logo", { y: 40, opacity: 0 });
+        gsap.set(".word", { y: 30, opacity: 0 });
+        gsap.set("#description", { y: 30, opacity: 0 });
+        gsap.set(socialIcons, { scale: 0 });
+        gsap.set(formElements, { y: 30, opacity: 0 });
+
+        tl.to(".left-panel", {
+          x: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+        })
+          .to(
+            ".right-panel",
+            {
+              x: 0,
+              opacity: 1,
+              duration: 1,
+              ease: "power3.out",
+            },
+            "-=0.8",
+          )
+          .to(
+            "#logo",
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+            },
+            "-=0.5",
+          )
+          .to(
+            ".word",
+            {
+              y: 0,
+              opacity: 1,
+              stagger: 0.1,
+              duration: 0.5,
+              ease: "back.out(1.7)",
+            },
+            "-=0.3",
+          )
+          .to(
+            "#description",
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+            },
+            "-=0.4",
+          )
+          .to(
+            socialIcons,
+            {
+              scale: 1,
+              stagger: 0.1,
+              duration: 0.5,
+              ease: "back.out(1.7)",
+            },
+            "-=0.3",
+          )
+          .to(
+            formElements,
+            {
+              y: 0,
+              opacity: 1,
+              stagger: 0.1,
+              duration: 0.5,
+              ease: "power2.out",
+            },
+            "-=0.8",
+          );
+
+        // --- INFINITE BACKGROUND ZOOM ---
+        gsap.to(".left-panel", {
+          backgroundSize: "115%",
+          duration: 20,
+          ease: "none",
+          repeat: -1,
+          yoyo: true,
+        });
+
+        // --- INTERACTIVE ELEMENTS ---
+
+        const inputs = document.querySelectorAll(".form-group input");
+        inputs.forEach((input) => {
+          input.addEventListener("focus", () => {
+            gsap.to(input, {
+              borderBottomColor: "#E30613",
+              scale: 1.02,
+              duration: 0.3,
+            });
+          });
+          input.addEventListener("blur", () => {
+            gsap.to(input, {
+              borderBottomColor: "#E5E7EB",
+              scale: 1,
+              duration: 0.3,
+            });
+          });
+        });
+
+        socialIcons.forEach((btn) => {
+          btn.addEventListener("mouseenter", () => {
+            gsap.to(btn, { scale: 1.15, duration: 0.2 });
+          });
+          btn.addEventListener("mouseleave", () => {
+            gsap.to(btn, { scale: 1, duration: 0.2 });
+          });
+        });
+
+        togglePassword.addEventListener("click", function () {
+          const type =
+            passwordField.getAttribute("type") === "password"
+              ? "text"
+              : "password";
+          passwordField.setAttribute("type", type);
+          this.classList.toggle("fa-eye-slash");
+          this.classList.toggle("fa-eye");
+        });
+      });
+    </script>
+  </body>
+</html>

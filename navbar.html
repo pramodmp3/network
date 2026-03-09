@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TelNET - Premium Broadband</title>
+    <!-- Poppins Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-red: #e30613;
+        --navy: #0b0f2b;
+        --deep-blue: #050c2f;
+        --light-bg: #f4f4f6;
+        --text-gray: #6b7280;
+        --soft-pink: #fde8ea;
+        --white: #ffffff;
+        --nav-height: 90px;
+        --transition: 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: var(--light-bg);
+        height: 200vh;
+      }
+
+      /* Prevent scrolling when menu is open */
+      body.menu-open {
+        overflow: hidden;
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: var(--nav-height);
+        background: var(--white);
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        transition: var(--transition);
+      }
+
+      .navbar.scrolled {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        height: 80px;
+      }
+
+      .nav-container {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+      }
+
+      /* Left Section: Logo Image */
+      .logo {
+        padding-left: 40px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        z-index: 1005;
+      }
+
+      .logo img {
+        height: 45px;
+        width: auto;
+        display: block;
+        object-fit: contain;
+      }
+
+      /* Center Section: Navigation */
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+        height: 100%;
+        align-items: center;
+      }
+
+      .nav-item {
+        position: relative;
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--navy);
+        font-size: 16px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .nav-link i {
+        font-size: 10px;
+        margin-top: 2px;
+        transition: transform 0.3s;
+      }
+
+      .nav-link:hover {
+        color: var(--primary-red);
+      }
+
+      /* Contact Button Style */
+      .nav-btn {
+        background-color: var(--primary-red);
+        color: var(--white) !important;
+        padding: 10px 25px;
+        border-radius: 50px;
+        font-size: 15px !important;
+        transition: var(--transition);
+        border: 1px solid var(--primary-red);
+      }
+
+      .nav-btn:hover {
+        background-color: transparent;
+        color: var(--primary-red) !important;
+        box-shadow: 0 4px 15px rgba(227, 6, 19, 0.2);
+      }
+
+      /* Dropdown Menu (Desktop) */
+      .dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: var(--white);
+        min-width: 180px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-bottom: 3px solid var(--primary-red);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: var(--transition);
+        list-style: none;
+        padding: 10px 0;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .nav-item:hover .dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .dropdown li a {
+        padding: 10px 20px;
+        display: block;
+        text-decoration: none;
+        color: var(--navy);
+        font-size: 15px;
+        font-weight: 500;
+        transition: var(--transition);
+      }
+
+      .dropdown li a:hover {
+        background-color: var(--soft-pink);
+        color: var(--primary-red);
+        padding-left: 25px;
+      }
+
+      /* Right Section: Red Action Panel */
+      .action-panel {
+        background: var(--primary-red);
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 40px 0 60px;
+        border-top-left-radius: 90px;
+        border-bottom-left-radius: 90px;
+        color: var(--white);
+        gap: 30px;
+        z-index: 1001;
+      }
+
+      .call-section {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .call-icon-circle {
+        width: 50px;
+        height: 50px;
+        background: var(--white);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--primary-red);
+        font-size: 20px;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .call-icon-circle:hover {
+        transform: scale(1.1);
+      }
+
+      .call-info {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .call-label {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 1;
+        margin-bottom: 2px;
+      }
+
+      .call-number {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .utility-icons {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 18px;
+        cursor: pointer;
+        transition: var(--transition);
+        position: relative;
+      }
+
+      .icon-btn:hover {
+        transform: scale(1.15);
+      }
+
+      .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background: var(--white);
+        color: var(--primary-red);
+        font-size: 10px;
+        font-weight: 800;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid var(--primary-red);
+      }
+
+      .lang-selector {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      .lang-selector i:last-child {
+        font-size: 10px;
+      }
+
+      .flag-icon {
+        font-size: 18px;
+      }
+
+      /* Mobile Menu Toggle */
+      .mobile-toggle {
+        display: none;
+        font-size: 28px;
+        color: var(--navy);
+        cursor: pointer;
+        padding-right: 20px;
+        z-index: 1006;
+      }
+
+      /* Mobile Full-Screen Menu Styles */
+      @media (max-width: 1024px) {
+        .nav-menu {
+          position: fixed;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100vh;
+          background: var(--white);
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+          padding: 120px 40px;
+          gap: 5px;
+          transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+          z-index: 1000;
+          overflow-y: auto;
+        }
+
+        .nav-menu.active {
+          left: 0;
+        }
+
+        .nav-item {
+          width: 100%;
+          height: auto;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .nav-link {
+          width: 100%;
+          padding: 15px 0;
+          justify-content: space-between;
+          font-size: 24px;
+          font-weight: 700;
+          border-bottom: 1px solid #f0f0f0;
+        }
+
+        /* Reset button style for mobile links to keep consistency */
+        .nav-btn {
+          background-color: transparent;
+          border: none;
+          border-radius: 0;
+          padding: 15px 0;
+          color: var(--navy) !important;
+          font-size: 24px !important;
+          border-bottom: 1px solid #f0f0f0;
+          width: 100%;
+          text-align: left;
+          justify-content: flex-start;
+        }
+
+        .nav-btn:hover {
+          box-shadow: none;
+          background-color: transparent;
+        }
+
+        .dropdown {
+          position: static;
+          width: 100%;
+          box-shadow: none;
+          background: #fafafa;
+          display: none;
+          opacity: 1;
+          visibility: visible;
+          transform: none;
+          text-align: left;
+          padding: 5px 0 15px 20px;
+          border-bottom: none;
+          border-radius: 0;
+        }
+
+        .nav-item.active .dropdown {
+          display: block;
+        }
+
+        .dropdown li a {
+          font-size: 18px;
+          padding: 10px 0;
+          font-weight: 600;
+          color: var(--text-gray);
+        }
+
+        .mobile-toggle {
+          display: block;
+          order: 2;
+        }
+
+        .logo {
+          padding-left: 20px;
+          order: 1;
+        }
+
+        .action-panel {
+          order: 3;
+          padding: 0 20px;
+          border-radius: 0;
+          background: transparent;
+        }
+
+        .action-panel .call-info,
+        .action-panel .utility-icons,
+        .action-panel .lang-selector {
+          display: none;
+        }
+
+        .action-panel .call-icon-circle {
+          background: var(--primary-red);
+          color: var(--white);
+          width: 45px;
+          height: 45px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="navbar" id="mainNavbar">
+      <div class="nav-container">
+        <!-- Logo Image -->
+        <a href="./index.html" class="logo">
+          <img
+            src="https://via.placeholder.com/150x50?text=TELNET"
+            alt="TelNET Logo"
+            id="logoImg"
+          />
+        </a>
+
+        <!-- Navigation Links -->
+        <ul class="nav-menu" id="navMenu">
+          <li class="nav-item">
+            <a class="nav-link"
+              >HOME <i class="fa-solid fa-chevron-down"></i
+            ></a>
+            <ul class="dropdown">
+              <li><a href="./index.html">HOME 1</a></li>
+              <li><a href="./home2.html">HOME 2</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="./about.html" class="nav-link">ABOUT US</a>
+          </li>
+          <li class="nav-item">
+            <a href="./service.html" class="nav-link">SERVICES</a>
+          </li>
+          <li class="nav-item">
+            <a href="./pricing.html" class="nav-link">PRICING</a>
+          </li>
+          <li class="nav-item">
+            <a href="./contact.html" class="nav-link">CONTACT</a>
+          </li>
+          <!-- Contact Us as a Button -->
+          <li class="nav-item">
+            <a href="./login.html" class="nav-link nav-btn">LOGIN</a>
+          </li>
+        </ul>
+
+        <!-- Mobile Toggle -->
+        <div class="mobile-toggle" id="mobileToggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <!-- Red Action Panel -->
+        <div class="action-panel">
+          <div class="call-section">
+            <div class="call-icon-circle">
+              <i class="fa-solid fa-phone-flip"></i>
+            </div>
+            <div class="call-info">
+              <span class="call-label">Call Us Now</span>
+              <span class="call-number">+880 123 456 789</span>
+            </div>
+          </div>
+
+          <div class="utility-icons">
+            <button class="icon-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <button class="icon-btn">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="cart-badge">0</span>
+            </button>
+          </div>
+
+          <div class="lang-selector">
+            <span class="flag-icon">🇺🇸</span>
+            <span>English</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <script>
+      // Handle sticky navbar shadow on scroll
+      const navbar = document.getElementById("mainNavbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Mobile Menu Logic
+      const mobileToggle = document.getElementById("mobileToggle");
+      const navMenu = document.getElementById("navMenu");
+      const toggleIcon = mobileToggle.querySelector("i");
+      const body = document.body;
+
+      mobileToggle.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+        body.classList.toggle("menu-open"); // Prevent scroll
+
+        if (navMenu.classList.contains("active")) {
+          toggleIcon.classList.replace("fa-bars", "fa-xmark");
+        } else {
+          toggleIcon.classList.replace("fa-xmark", "fa-bars");
+        }
+      });
+
+      // Mobile Dropdown Toggle Logic
+      document.querySelectorAll(".nav-item").forEach((item) => {
+        const link = item.querySelector(".nav-link");
+        if (item.querySelector(".dropdown")) {
+          link.addEventListener("click", (e) => {
+            if (window.innerWidth <= 1024) {
+              e.preventDefault();
+              item.classList.toggle("active");
+              // Rotate chevron icon
+              const icon = link.querySelector("i");
+              if (item.classList.contains("active")) {
+                icon.style.transform = "rotate(180deg)";
+              } else {
+                icon.style.transform = "rotate(0deg)";
+              }
+            }
+          });
+        }
+      });
+
+      // Close menu when clicking a standard link (mobile)
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          // If it's the contact button or a link without dropdown, close menu
+          if (
+            !link.parentElement.querySelector(".dropdown") ||
+            window.innerWidth > 1024
+          ) {
+            navMenu.classList.remove("active");
+            body.classList.remove("menu-open");
+            toggleIcon.classList.replace("fa-xmark", "fa-bars");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

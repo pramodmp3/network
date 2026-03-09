@@ -1,0 +1,1200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern ISP - About Us</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- GSAP for Animations -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./foot.css" />
+    <style>
+      :root {
+        --primary-red: #ff1e2d;
+        --dark-navy: #0b0f2b;
+        --light-bg: #f4f4f6;
+        --text-gray: #6b7280;
+        --white: #ffffff;
+        --container-max: 1200px;
+      }
+
+      /* Prevent horizontal overflow globally */
+      html,
+      body {
+        max-width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      * {
+        box-sizing: inherit;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        color: var(--dark-navy);
+        background: #fff;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: var(--container-max);
+        padding: 0 20px;
+        margin: auto;
+      }
+      p {
+        font-family: "Inter", sans-serif;
+        color: var(--text-gray);
+        font-size: 15px;
+      }
+
+      /* Button Fill Animation */
+      .btn-fill {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 32px;
+        font-weight: 700;
+        text-decoration: none;
+        border-radius: 6px;
+        overflow: hidden;
+        z-index: 1;
+        transition: color 0.4s ease;
+        cursor: pointer;
+        border: none;
+        gap: 10px;
+        font-size: 15px;
+        white-space: nowrap;
+      }
+      .btn-red {
+        background: var(--primary-red);
+        color: white;
+      }
+      .btn-outline {
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+        border-radius: 30px;
+      }
+
+      .btn-fill .fill-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 100%;
+        background: var(--dark-navy);
+        z-index: -1;
+        transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+      .btn-outline .fill-overlay {
+        background: white;
+      }
+      .btn-fill:hover .fill-overlay {
+        width: 100%;
+      }
+      .btn-fill:hover {
+        color: white;
+      }
+      .btn-outline:hover {
+        color: var(--primary-red);
+        border-color: white;
+      }
+
+      /* Hero Section */
+      .hero {
+        position: relative;
+        height: 350px;
+        background: url("./assets/hero-banner.webp") center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .hero {
+        margin-top: 0;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          rgba(11, 15, 43, 0.85),
+          rgba(11, 15, 43, 0.6)
+        );
+        z-index: 1;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 0 20px;
+        width: 100%;
+      }
+      .hero h1 {
+        color: white;
+        font-size: clamp(32px, 8vw, 64px);
+        font-weight: 800;
+        margin: 0;
+        letter-spacing: -1px;
+      }
+      .breadcrumb {
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 15px;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .breadcrumb span {
+        color: var(--primary-red);
+        font-weight: 600;
+      }
+
+      /* Special Features */
+      .features-section {
+        padding: 80px 0;
+        background: #fbfbfc;
+        overflow: hidden;
+      }
+      .label-pill {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: var(--primary-red);
+        font-weight: 700;
+        font-size: 13px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .pill-bar {
+        width: 25px;
+        height: 12px;
+        border: 2px solid var(--primary-red);
+        border-radius: 10px;
+        position: relative;
+        flex-shrink: 0;
+      }
+      .pill-bar::after {
+        content: "";
+        position: absolute;
+        right: 2px;
+        top: 2px;
+        width: 4px;
+        height: 4px;
+        background: var(--primary-red);
+        border-radius: 50%;
+      }
+      section:not(.hero) {
+        margin-top: 110px;
+      }
+
+      .features-section {
+        margin-top: 90px;
+      }
+      .section-title {
+        text-align: center;
+        font-size: clamp(28px, 5vw, 42px);
+        font-weight: 800;
+        margin-bottom: 60px;
+        line-height: 1.2;
+        padding: 0 10px;
+      }
+      .section-title span {
+        color: var(--primary-red);
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr 1fr;
+        gap: 30px;
+        align-items: center;
+      }
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+        margin-bottom: 40px;
+        width: 100%;
+      }
+      .right-col .feature-item {
+        flex-direction: row-reverse;
+        text-align: right;
+      }
+
+      .icon-box {
+        min-width: 65px;
+        width: 65px;
+        height: 65px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-red);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transition: 0.3s;
+        flex-shrink: 0;
+      }
+      .feature-item:hover .icon-box {
+        background: var(--primary-red);
+        color: white;
+        transform: translateY(-5px);
+      }
+      .feature-text h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: var(--dark-navy);
+      }
+
+      .man-visual {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+      .man-visual img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        z-index: 2;
+        position: relative;
+      }
+      .man-glow {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 500px;
+        height: 70%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 30, 45, 0.15) 0%,
+          transparent 70%
+        );
+        z-index: 1;
+        border-radius: 50%;
+      }
+      .float-soc {
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        z-index: 3;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Save Money */
+      .save-money {
+        padding: 80px 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+        overflow: hidden;
+      }
+      .visual-stack {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .blob-bg-red {
+        position: absolute;
+        top: -5%;
+        left: -5%;
+        width: 110%;
+        height: 110%;
+        background: var(--primary-red);
+        clip-path: url(#blobPath);
+        z-index: -1;
+        opacity: 0.9;
+      }
+      .main-tv-img {
+        width: 100%;
+        border-radius: 20px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        display: block;
+        position: relative;
+        z-index: 1;
+      }
+
+      .badge-purple {
+        position: absolute;
+        top: -15px;
+        right: -15px;
+        width: 90px;
+        height: 90px;
+        background: #2b124c;
+        border: 4px solid white;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+      }
+      .badge-purple strong {
+        font-size: 24px;
+        color: var(--primary-red);
+        line-height: 1;
+      }
+      .badge-purple span {
+        font-size: 9px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .oval-play {
+        position: absolute;
+        bottom: -30px;
+        right: -10px;
+        width: clamp(100px, 25vw, 150px);
+        height: clamp(140px, 35vw, 200px);
+        border-radius: 100px;
+        background: url("./assets/ab3.webp") center/cover;
+        border: 6px solid white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+      }
+      .play-btn {
+        width: 45px;
+        height: 45px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-red);
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .save-content h2 {
+        font-size: clamp(30px, 5vw, 44px);
+        font-weight: 800;
+        line-height: 1.1;
+        margin: 20px 0;
+      }
+      .red-line {
+        text-decoration: underline;
+        text-decoration-color: var(--primary-red);
+        text-underline-offset: 8px;
+      }
+      .bullets {
+        list-style: none;
+        margin: 30px 0;
+        padding: 0;
+      }
+      .bullets li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+        font-weight: 700;
+        color: var(--dark-navy);
+        font-size: 16px;
+      }
+      .check-circle {
+        width: 22px;
+        height: 22px;
+        background: var(--primary-red);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        flex-shrink: 0;
+      }
+
+      /* Split Banner */
+      .split-banner {
+        display: flex;
+        min-height: 560px;
+        position: relative;
+        overflow: hidden;
+      }
+      .split-navy {
+        flex: 1;
+        background: var(--dark-navy);
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 40px;
+        position: relative;
+      }
+      .split-red {
+        flex: 1;
+        background: var(--primary-red);
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 60px 40px 60px 100px;
+      }
+      .split-red::before {
+        content: "";
+        position: absolute;
+        left: -80px;
+        top: 0;
+        width: 160px;
+        height: 100%;
+        background: var(--primary-red);
+        transform: skewX(-15deg);
+      }
+
+      .split-img {
+        width: 100%;
+        max-width: 480px;
+        height: auto;
+        border: 12px solid white;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        z-index: 2;
+        transform: translateX(60px);
+      }
+      .split-info {
+        max-width: 450px;
+        color: white;
+        z-index: 3;
+      }
+      .split-info h2 {
+        font-size: clamp(28px, 4vw, 38px);
+        line-height: 1.2;
+        margin-bottom: 20px;
+        font-weight: 800;
+      }
+      .mini-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 30px 0;
+      }
+      .mini-grid strong {
+        font-size: 15px;
+        display: block;
+        margin-bottom: 4px;
+      }
+      .mini-grid span {
+        font-size: 12px;
+        opacity: 0.8;
+      }
+
+      /* Watch Anywhere */
+      .watch-anywhere {
+        padding: 80px 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+        overflow: hidden;
+      }
+      .dashed-box {
+        border: 2px dashed var(--primary-red);
+        border-radius: 12px;
+        padding: 25px;
+        display: flex;
+        gap: 30px;
+        margin: 35px 0;
+        width: 100%;
+      }
+      .db-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .db-item strong {
+        display: block;
+        font-size: 24px;
+        line-height: 1;
+        color: var(--dark-navy);
+      }
+
+      .triangle-visual {
+        position: relative;
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+      }
+      .tri-mask {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1/1;
+        background: var(--dark-navy);
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .tri-img {
+        width: 96%;
+        height: 96%;
+        object-fit: cover;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      }
+      .tri-overlap {
+        position: absolute;
+        top: 5%;
+        left: 5%;
+        width: 100%;
+        height: 100%;
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        background: var(--primary-red);
+        opacity: 0.15;
+        z-index: -1;
+      }
+
+      /* Responsive Breakpoints */
+      @media (max-width: 1100px) {
+        .split-red {
+          padding-left: 60px;
+        }
+        .split-img {
+          transform: translateX(30px);
+        }
+      }
+
+      @media (max-width: 992px) {
+        .features-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .man-visual {
+          order: -1;
+          margin-bottom: 40px;
+        }
+        .right-col .feature-item {
+          flex-direction: row;
+          text-align: left;
+        }
+
+        .save-money,
+        .watch-anywhere {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 60px;
+        }
+        .save-content,
+        .anywhere-info {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+        }
+        .label-pill {
+          justify-content: center !important;
+          width: 100%;
+        }
+        .bullets {
+          display: inline-block;
+          text-align: left;
+        }
+
+        .split-banner {
+          flex-direction: column;
+          min-height: auto;
+        }
+        .split-navy,
+        .split-red {
+          padding: 60px 20px;
+          width: 100%;
+          justify-content: center;
+        }
+        .split-navy {
+          padding-bottom: 0;
+        }
+        .split-red::before {
+          display: none;
+        }
+        .split-img {
+          transform: none;
+          margin-bottom: -80px;
+          border-width: 8px;
+          max-width: 90%;
+        }
+        .split-info {
+          text-align: center;
+          width: 100%;
+          padding-top: 80px;
+        }
+        .mini-grid {
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero {
+          height: 280px;
+        }
+        .dashed-box {
+          flex-direction: column;
+          gap: 20px;
+          align-items: center;
+        }
+        .badge-purple {
+          width: 75px;
+          height: 75px;
+          right: -5px;
+          top: -5px;
+        }
+        .oval-play {
+          right: 0;
+          bottom: -20px;
+        }
+        .mini-grid {
+          grid-template-columns: 1fr;
+        }
+        .btn-fill {
+          width: 100%;
+          max-width: 280px;
+        }
+      }
+
+      .back-top {
+        position: fixed;
+        right: 15px;
+        bottom: 30px;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        font-size: 10px;
+        font-weight: 800;
+        color: #333;
+        letter-spacing: 2px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        z-index: 100;
+      }
+      .back-top::after {
+        content: "";
+        width: 2px;
+        height: 30px;
+        background: var(--primary-red);
+      }
+    </style>
+    <link rel="stylesheet" href="./nav.css" />
+    <link rel="stylesheet" href="./foot.css" />
+  </head>
+  <body>
+    <header class="navbar" id="mainNavbar">
+      <div class="nav-container">
+        <!-- Logo Image -->
+        <a href="./index.html" class="logo">
+          <img src="./assets/logooo.webp" alt="TelNET Logo" id="logoImg" />
+        </a>
+
+        <!-- Navigation Links -->
+        <ul class="nav-menu" id="navMenu">
+          <li class="nav-item">
+            <a class="nav-link"
+              >HOME <i class="fa-solid fa-chevron-down"></i
+            ></a>
+            <ul class="dropdown">
+              <li><a href="./index.html">HOME 1</a></li>
+              <li><a href="./home2.html">HOME 2</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="./about.html" class="nav-link">ABOUT US</a>
+          </li>
+          <li class="nav-item">
+            <a href="./service.html" class="nav-link">SERVICES</a>
+          </li>
+          <li class="nav-item">
+            <a href="./pricing.html" class="nav-link">PRICING</a>
+          </li>
+          <li class="nav-item">
+            <a href="./contact.html" class="nav-link">CONTACT</a>
+          </li>
+          <!-- Contact Us as a Button -->
+          <li class="nav-item">
+            <a href="./login.html" class="nav-link nav-btn">LOGIN</a>
+          </li>
+        </ul>
+
+        <!-- Mobile Toggle -->
+        <div class="mobile-toggle" id="mobileToggle">
+          <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <!-- Red Action Panel -->
+        <div class="action-panel">
+          <div class="call-section">
+            <div class="call-icon-circle">
+              <i class="fa-solid fa-phone-flip"></i>
+            </div>
+            <div class="call-info">
+              <span class="call-label">Call Us Now</span>
+              <span class="call-number">+880 123 456 789</span>
+            </div>
+          </div>
+
+          <div class="utility-icons">
+            <button class="icon-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <button class="icon-btn">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span class="cart-badge">0</span>
+            </button>
+          </div>
+
+          <div class="lang-selector">
+            <span class="flag-icon">🇺🇸</span>
+            <span>English</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+    </header>
+    <svg width="0" height="0">
+      <defs>
+        <clipPath id="blobPath" clipPathUnits="objectBoundingBox">
+          <path
+            d="M0.903,0.345 C0.963,0.472,0.966,0.612,0.905,0.73 C0.843,0.849,0.716,0.947,0.575,0.957 C0.434,0.967,0.279,0.89,0.183,0.777 C0.088,0.665,0.052,0.517,0.095,0.384 C0.138,0.252,0.26,0.134,0.402,0.076 C0.544,0.017,0.706,0.018,0.822,0.096 C0.871,0.128,0.912,0.176,0.923,0.235"
+          ></path>
+        </clipPath>
+      </defs>
+    </svg>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>ABOUT US</h1>
+        <div class="breadcrumb">Home – <span>About Us</span></div>
+      </div>
+    </section>
+
+    <!-- Special Features -->
+    <section class="features-section">
+      <div class="container">
+        <div class="label-pill">
+          <div class="pill-bar"></div>
+          OUR FACILITY
+          <div class="pill-bar" style="transform: scaleX(-1)"></div>
+        </div>
+        <h2 class="section-title">Our Special <span>Features</span></h2>
+
+        <div class="features-grid">
+          <div class="left-col">
+            <div class="feature-item gs-feat">
+              <div class="feature-text">
+                <h3>Ultra-Speed Connection</h3>
+                <p>High-speed fiber optics for zero lag.</p>
+              </div>
+              <div class="icon-box"><i data-lucide="zap"></i></div>
+            </div>
+            <div class="feature-item gs-feat">
+              <div class="feature-text">
+                <h3>250+ TV Channels</h3>
+                <p>Massive selection of HD content.</p>
+              </div>
+              <div class="icon-box"><i data-lucide="tv"></i></div>
+            </div>
+            <div class="feature-item gs-feat">
+              <div class="feature-text">
+                <h3>Flexible Plans</h3>
+                <p>Tailored packages for your home.</p>
+              </div>
+              <div class="icon-box"><i data-lucide="clipboard-list"></i></div>
+            </div>
+          </div>
+
+          <div class="man-visual">
+            <div class="man-glow"></div>
+            <img src="./assets/ab6.webp" alt="Man using mobile" />
+            <div
+              class="float-soc gs-float"
+              style="background: #1da1f2; top: 15%; left: 15%"
+            >
+              <i data-lucide="twitter" size="18"></i>
+            </div>
+            <div
+              class="float-soc gs-float"
+              style="background: #e1306c; top: 25%; right: 15%"
+            >
+              <i data-lucide="instagram" size="18"></i>
+            </div>
+            <div
+              class="float-soc gs-float"
+              style="background: #4267b2; bottom: 25%; left: 15%"
+            >
+              <i data-lucide="facebook" size="18"></i>
+            </div>
+            <div
+              class="float-soc gs-float"
+              style="background: #ff0000; bottom: 20%; right: 15%"
+            >
+              <i data-lucide="youtube" size="18"></i>
+            </div>
+          </div>
+
+          <div class="right-col">
+            <div class="feature-item gs-feat">
+              <div class="icon-box"><i data-lucide="settings"></i></div>
+              <div class="feature-text">
+                <h3>Free Installation</h3>
+                <p>Professional setup by experts.</p>
+              </div>
+            </div>
+            <div class="feature-item gs-feat">
+              <div class="icon-box"><i data-lucide="headset"></i></div>
+              <div class="feature-text">
+                <h3>Fast Support 24/7</h3>
+                <p>Dedicated team available 24/7.</p>
+              </div>
+            </div>
+            <div class="feature-item gs-feat">
+              <div class="icon-box"><i data-lucide="monitor"></i></div>
+              <div class="feature-text">
+                <h3>4K & 8K Quality</h3>
+                <p>Crystal clear resolution standards.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Save Money -->
+    <section class="container save-money">
+      <div class="visual-stack gs-reveal">
+        <div class="blob-bg-red"></div>
+        <img src="./assets/ab2.webp" class="main-tv-img" alt="Watching TV" />
+
+        <div class="badge-purple">
+          <strong>$39</strong>
+          <span>Monthly</span>
+        </div>
+
+        <div class="oval-play">
+          <a href="./404.html">
+            <div class="play-btn">
+              <i data-lucide="play" fill="currentColor"></i></div
+          ></a>
+        </div>
+      </div>
+
+      <div class="save-content gs-reveal">
+        <div class="label-pill" style="justify-content: flex-start">
+          <div class="pill-bar"></div>
+          SAVE YOUR MONEY
+        </div>
+        <h2>
+          Save Money on TV and <span class="red-line">Internet</span> Services
+        </h2>
+        <p>
+          Our bundled services offer the best value. Get premium speeds and
+          channels for less than the competition.
+        </p>
+
+        <ul class="bullets">
+          <li>
+            <div class="check-circle">
+              <i data-lucide="check" size="14"></i>
+            </div>
+            Get 100% Free Installation
+          </li>
+          <li>
+            <div class="check-circle">
+              <i data-lucide="check" size="14"></i>
+            </div>
+            Watch Unlimited Movies And More
+          </li>
+        </ul>
+
+        <a href="./404.html">
+          <button class="btn-fill btn-red">
+            Get In Touch <i data-lucide="chevron-right" size="16"></i>
+            <span class="fill-overlay"></span></button
+        ></a>
+      </div>
+    </section>
+
+    <!-- Split Banner -->
+    <section class="split-banner">
+      <div class="split-navy">
+        <img
+          src="./assets/ab4.webp"
+          class="split-img"
+          alt="Quality Entertainment"
+        />
+      </div>
+      <div class="split-red">
+        <div class="split-info gs-reveal">
+          <p
+            style="
+              color: white;
+              font-weight: 600;
+              font-size: 13px;
+              margin-bottom: 10px;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            "
+          >
+            Premium Entertainment
+          </p>
+          <h2>Watch Live Sports & Cinema With Family</h2>
+          <p style="color: rgba(255, 255, 255, 0.9)">
+            Bring the stadium into your living room with our low-latency
+            streaming and high-definition signal.
+          </p>
+
+          <div class="mini-grid">
+            <div>
+              <strong>4K Ultra HD Quality</strong>
+              <span>Smooth 60FPS Streaming</span>
+            </div>
+            <div>
+              <strong>120+ Online Channels</strong>
+              <span>All devices supported</span>
+            </div>
+          </div>
+
+          <a href="./404.html">
+            <button class="btn-fill btn-outline">
+              Learn More
+              <span class="fill-overlay"></span></button
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Watch Anywhere -->
+    <section class="container watch-anywhere">
+      <div class="anywhere-info gs-reveal">
+        <div class="label-pill" style="justify-content: flex-start">
+          <div class="pill-bar"></div>
+          GET STARTED
+        </div>
+        <h2>Watch Your Favorite Channels Anywhere</h2>
+        <p>
+          On the couch or on the go, our app ensures you never miss a moment of
+          the action.
+        </p>
+
+        <div class="dashed-box">
+          <div class="db-item">
+            <div class="icon"><i data-lucide="tv" size="32"></i></div>
+            <div>
+              <strong>4K</strong>
+              <span>Ultra HD</span>
+            </div>
+          </div>
+          <div class="db-item">
+            <div class="icon"><i data-lucide="smartphone" size="32"></i></div>
+            <div>
+              <strong>560+</strong>
+              <span>App Channels</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="./404.html">
+          <button class="btn-fill btn-red">
+            GET STARTED NOW →
+            <span class="fill-overlay"></span></button
+        ></a>
+      </div>
+
+      <div class="triangle-visual gs-reveal">
+        <div class="tri-overlap"></div>
+        <div class="tri-mask">
+          <img
+            src="./assets/map.webp"
+            class="tri-img"
+            alt="Streaming Anywhere"
+          />
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="container">
+        <!-- Contact Circle Form -->
+        <div class="contact-circle" id="contactCircle">
+          <h3 class="circle-heading">Contact Us</h3>
+          <form class="contact-form" action="./404.html">
+            <input type="text" placeholder="First Name" required />
+            <input type="text" placeholder="Last Name" required />
+            <input type="email" placeholder="Email Address" required />
+            <!-- <input type="tel" placeholder="Phone Number" /> -->
+            <button class="submit-btn">SUBMIT NOW</button>
+          </form>
+          <!-- <button class="submit-btn">SUBMIT NOW</button> -->
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+          <div class="cta-grid">
+            <div><!-- Spacer for circle --></div>
+            <div class="cta-content" id="ctaContent">
+              <h2 class="cta-heading">Let’s Get In Touch</h2>
+              <p class="cta-description">
+                Lorem ipsum dolor sit amet consectetur. Viverra suspendisse ac
+                velit donec.
+              </p>
+            </div>
+          </div>
+
+          <div class="divider" id="divider"></div>
+
+          <!-- Footer Links -->
+          <div class="footer-links-grid">
+            <!-- Col 1 -->
+            <div class="footer-col reveal-col">
+              <div
+                style="
+                  font-size: 24px;
+                  color: white;
+                  font-weight: 800;
+                  margin-bottom: 15px;
+                "
+              >
+                <a href="./index.html" style="text-decoration: none">
+                  <span style="color: var(--stk-primary-red)">STACK</span>LY
+                </a>
+              </div>
+              <p class="footer-about">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed.
+              </p>
+              <a href="./404.html" class="learn-more">Learn More</a>
+            </div>
+
+            <!-- Col 2 -->
+            <div class="footer-col reveal-col">
+              <ul class="link-list">
+                <a href="./index.html" style="text-decoration: none"
+                  ><li class="link-item">HOME</li></a
+                >
+                <a href="./about.html" style="text-decoration: none">
+                  <li class="link-item">ABOUT US</li></a
+                >
+                <a href="./service.html" style="text-decoration: none"
+                  ><li class="link-item">SERVICES</li></a
+                >
+                <a href="./pricing.html" style="text-decoration: none">
+                  <li class="link-item">PRICING</li></a
+                >
+              </ul>
+            </div>
+
+            <!-- Col 3 -->
+            <div class="footer-col reveal-col">
+              <ul class="link-list">
+                <a href="./404.html" style="text-decoration: none">
+                  <li class="link-item">WORKS</li></a
+                >
+                <a href="./404.html" style="text-decoration: none">
+                  <li class="link-item">STUDIO</li></a
+                >
+                <a href="./404.html" style="text-decoration: none">
+                  <li class="link-item">NEWS</li></a
+                >
+              </ul>
+            </div>
+
+            <!-- Col 4 -->
+            <div class="footer-col reveal-col">
+              <div class="contact-info-heading">Info@Envato.Com</div>
+              <p class="address-text">
+                380 St Kilda Road, Melbourne VIC<br />
+                3004, Australia
+              </p>
+              <div class="social-row">
+                <a href="./404.html" class="social-icon">FB</a>
+                <a href="./404.html" class="social-icon">TL</a>
+                <a href="./404.html" class="social-icon">YT</a>
+                <a href="./404.html" class="social-icon">IN</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+          © 2024 Stackly - Internet Service Provider Theme.
+        </div>
+      </div>
+    </footer>
+    <script src="./nav.js"></script>
+    <script src="./foot.js"></script>
+    <!-- <div
+      class="back-top"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    >
+      BACK TOP
+    </div> -->
+
+    <script>
+      lucide.createIcons();
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Floating Icons
+      gsap.to(".gs-float", {
+        y: -15,
+        duration: 2.5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: 0.4,
+      });
+
+      // Features stagger
+      gsap.from(".gs-feat", {
+        scrollTrigger: { trigger: ".features-grid", start: "top 80%" },
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power2.out",
+      });
+
+      // Section Reveals
+      document.querySelectorAll(".gs-reveal").forEach((el) => {
+        gsap.from(el, {
+          scrollTrigger: { trigger: el, start: "top 90%" },
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        });
+      });
+    </script>
+  </body>
+</html>

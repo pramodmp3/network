@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STACKLY Insights | Premium Internet Blog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./nav2.css" />
+    <link rel="stylesheet" href="./foot2.css" />
+    <style>
+      :root {
+        --primary-purple: #2f2a74;
+        --secondary-purple: #5b3c9d;
+        --accent-orange: #ff6a00;
+        --light-bg: #f5f5f7;
+        --dark-text: #1f1f2e;
+        --white: #ffffff;
+        --grey-text: #6b6b7f;
+        --primary-gradient: linear-gradient(
+          135deg,
+          rgba(255, 122, 24, 0.85),
+          rgba(47, 42, 116, 0.9)
+        );
+        --secondary-gradient: linear-gradient(135deg, #ff6a00, #5b3c9d);
+        --card-shadow: 0 10px 30px rgba(47, 42, 116, 0.08);
+        --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--light-bg);
+        color: var(--dark-text);
+        line-height: 1.6;
+        overflow-x: hidden;
+        animation: fadeInPage 1s ease-out;
+      }
+
+      @keyframes fadeInPage {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Background Effects */
+      .bg-blob {
+        position: fixed;
+        width: 400px;
+        height: 400px;
+        background: var(--secondary-purple);
+        filter: blur(120px);
+        opacity: 0.1;
+        z-index: -1;
+        border-radius: 50%;
+        animation: float 20s infinite alternate;
+      }
+
+      .blob-1 {
+        top: -100px;
+        right: -100px;
+      }
+      .blob-2 {
+        bottom: -100px;
+        left: -100px;
+        background: var(--accent-orange);
+      }
+
+      @keyframes float {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(50px, 100px);
+        }
+      }
+
+      /* Hero Section with Background Image */
+      .hero {
+        position: relative;
+        width: 100%;
+        min-height: 450px;
+        padding: 100px 20px;
+        background-image: url("./assets/hero-banner.webp");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--white);
+        text-align: center;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Gradient Overlay for Readability */
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--primary-gradient);
+        z-index: 1;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+      }
+
+      .hero-shapes span {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+        font-weight: 300;
+        line-height: 1.5;
+      }
+
+      /* Container */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Filter Section */
+      .filters {
+        margin: -40px 0 40px 0; /* Pulled up slightly to overlap hero */
+        position: relative;
+        z-index: 10;
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding: 10px 5px 15px 5px;
+        scrollbar-width: none;
+        justify-content: flex-start;
+      }
+
+      .filters::-webkit-scrollbar {
+        display: none;
+      }
+
+      .filter-btn {
+        padding: 12px 28px;
+        border: none;
+        background: var(--white);
+        color: var(--primary-purple);
+        border-radius: 50px;
+        font-family: "Poppins";
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: var(--transition);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: var(--accent-orange);
+        color: var(--white);
+        box-shadow: 0 10px 20px rgba(255, 106, 0, 0.3);
+        transform: translateY(-2px);
+      }
+
+      /* Featured Section */
+      .featured-section {
+        margin-bottom: 60px;
+      }
+
+      .featured-card {
+        background: var(--white);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        display: flex;
+        flex-direction: column;
+        transition: var(--transition);
+      }
+
+      .featured-image {
+        width: 100%;
+        height: 250px;
+        background: #ddd;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .featured-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s ease;
+      }
+
+      .featured-content {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .tag {
+        display: inline-block;
+        background: rgba(91, 60, 157, 0.1);
+        color: var(--secondary-purple);
+        padding: 4px 12px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        width: fit-content;
+      }
+
+      .featured-content h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        line-height: 1.3;
+      }
+
+      .featured-content p {
+        color: var(--grey-text);
+        margin-bottom: 25px;
+      }
+
+      .btn {
+        background: var(--accent-orange);
+        color: var(--white);
+        text-decoration: none;
+        padding: 12px 30px;
+        border-radius: 12px;
+        font-weight: 600;
+        display: inline-block;
+        transition: var(--transition);
+        width: fit-content;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255, 106, 0, 0.25);
+        background: var(--secondary-purple);
+      }
+
+      /* Blog Grid */
+      .blog-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-bottom: 80px;
+      }
+
+      .blog-card {
+        background: var(--white);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .blog-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(47, 42, 116, 0.12);
+      }
+
+      .card-img {
+        width: 100%;
+        height: 200px;
+        background: #eee;
+        overflow: hidden;
+      }
+
+      .card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+      }
+
+      .blog-card:hover .card-img img {
+        transform: scale(1.1);
+      }
+
+      .card-body {
+        padding: 25px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card-body h3 {
+        font-size: 1.25rem;
+        margin-bottom: 12px;
+        line-height: 1.4;
+        color: var(--dark-text);
+      }
+
+      .card-body p {
+        font-size: 0.9rem;
+        color: var(--grey-text);
+        margin-bottom: 20px;
+      }
+
+      .card-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+      }
+
+      .author-info {
+        font-size: 0.8rem;
+        color: var(--dark-text);
+        font-weight: 600;
+      }
+
+      .date {
+        font-size: 0.8rem;
+        color: var(--grey-text);
+      }
+
+      .read-more {
+        color: var(--accent-orange);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: var(--transition);
+      }
+
+      .read-more:hover {
+        margin-left: 5px;
+      }
+
+      /* Responsive Breakpoints */
+      @media (min-width: 768px) {
+        .hero {
+          min-height: 500px;
+        }
+        .hero h1 {
+          font-size: 3.8rem;
+        }
+        .hero p {
+          font-size: 1.3rem;
+        }
+
+        .blog-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .filters {
+          justify-content: center;
+          margin-top: -30px;
+        }
+
+        .featured-card {
+          flex-direction: row;
+          height: 400px;
+        }
+
+        .featured-image {
+          width: 50%;
+          height: 100%;
+        }
+
+        .featured-content {
+          width: 50%;
+          padding: 50px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .blog-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .featured-content h2 {
+          font-size: 2.2rem;
+        }
+      }
+
+      /* Floating Particles Simulation */
+      .particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        animation: move-particle 15s linear infinite;
+        z-index: 1;
+      }
+
+      @keyframes move-particle {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="stkly-main-navbar">
+      <div class="stkly-nav-wrapper">
+        <!-- Logo Section -->
+        <div class="stkly-logo-container">
+          <a href="./home2.html">
+            <img
+              src="./assets/logo.webp"
+              class="stkly-logo-img"
+              alt="STACKLY Logo"
+            />
+          </a>
+        </div>
+
+        <!-- Desktop Nav Links -->
+        <div class="stkly-nav-links" id="stkly-desktop-nav">
+          <div class="stkly-dropdown">
+            <a href="#" class="stkly-nav-item">
+              <svg
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+              HOME
+            </a>
+
+            <div class="stkly-dropdown-menu">
+              <a href="./index.html">HOME1</a>
+              <a href="./home2.html">HOME2</a>
+            </div>
+          </div>
+          <a href="./products.html" class="stkly-nav-item">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+            PRODUCTS
+          </a>
+          <a href="./blog2.html" class="stkly-nav-item">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            BLOG
+          </a>
+          <a href="./dashboard.html" class="stkly-nav-item">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 3v18h18" />
+              <path d="m19 9-5 5-4-4-3 3" />
+            </svg>
+            DASHBOARD
+          </a>
+          <a href="./contact2.html" class="stkly-nav-btn-contact">CONTACT</a>
+        </div>
+
+        <!-- Hamburger Button -->
+        <button
+          class="stkly-hamburger-toggle"
+          id="stkly-hamburger"
+          aria-label="Open navigation menu"
+        >
+          <span class="stkly-hamburger-inner"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Full Screen Mobile Overlay -->
+    <div class="stkly-mobile-overlay" id="stkly-overlay">
+      <!-- Dedicated Close (X) Button -->
+      <button
+        class="stkly-menu-close-btn"
+        id="stkly-close-btn"
+        aria-label="Close navigation menu"
+      >
+        <svg
+          width="34"
+          height="34"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <ul class="stkly-mobile-menu-items">
+        <li class="stkly-mobile-dropdown">
+          <a href="" class="stkly-mobile-link stkly-mobile-toggle">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            HOME
+          </a>
+
+          <ul class="stkly-mobile-submenu">
+            <li><a href="./index.html">HOME1</a></li>
+            <li><a href="./home2.html">HOME2</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="./products.html" class="stkly-mobile-link">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+            PRODUCTS
+          </a>
+        </li>
+        <li>
+          <a href="./blog2.html" class="stkly-mobile-link">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            BLOG
+          </a>
+        </li>
+        <li>
+          <a href="./dashboard.html" class="stkly-mobile-link">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 3v18h18" />
+              <path d="m19 9-5 5-4-4-3 3" />
+            </svg>
+            DASHBOARD
+          </a>
+        </li>
+        <li>
+          <a
+            href="./contact2.html"
+            class="stkly-mobile-link stkly-mobile-link-contact"
+            >CONTACT</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <header class="hero">
+      <div class="hero-shapes" id="particles"></div>
+      <div class="hero-content">
+        <h1>STACKLY Insights</h1>
+        <p>
+          Latest News, Guides, and Technology Insights from the World of
+          Internet Connectivity
+        </p>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Category Filter -->
+      <section class="filters">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Internet</button>
+        <button class="filter-btn">Security</button>
+        <button class="filter-btn">Networking</button>
+        <button class="filter-btn">Smart Home</button>
+      </section>
+
+      <!-- Featured Section -->
+      <section class="featured-section">
+        <div class="featured-card">
+          <div class="featured-image">
+            <img src="./assets/b1.webp" alt="Fiber Internet" />
+          </div>
+          <div class="featured-content">
+            <span class="tag">Networking</span>
+            <h2>How Fiber Internet Is Changing Modern Connectivity</h2>
+            <p>
+              Explore why symmetrical speeds and low latency are becoming the
+              standard for the new digital age of remote work and gaming.
+            </p>
+            <a href="./4042.html" class="btn">Read Article</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Blog Grid -->
+      <main class="blog-grid">
+        <!-- Card 1 -->
+        <article class="blog-card">
+          <div class="card-img">
+            <img src="./assets/b22.webp" alt="WiFi Boost" />
+          </div>
+          <div class="card-body">
+            <span class="tag">Internet Tips</span>
+            <h3>5 Ways To Boost Your Home WiFi Speed</h3>
+            <p>
+              From router placement to channel optimization, learn how to
+              squeeze every bit of speed out of your connection.
+            </p>
+            <div class="card-footer">
+              <div class="author-info">
+                Alex Rivera <span class="date">• Oct 12</span>
+              </div>
+              <a href="./4042.html" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="blog-card">
+          <div class="card-img">
+            <img src="./assets/b3.webp" alt="Security" />
+          </div>
+          <div class="card-body">
+            <span class="tag">Security</span>
+            <h3>Why Network Security Matters in 2026</h3>
+            <p>
+              As threats evolve, your home network needs more than just a
+              password. Discover the latest in encrypted traffic.
+            </p>
+            <div class="card-footer">
+              <div class="author-info">
+                Sarah Chen <span class="date">• Oct 10</span>
+              </div>
+              <a href="./4042.html" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="blog-card">
+          <div class="card-img">
+            <img src="./assets/b4.webp" alt="Smart Home" />
+          </div>
+          <div class="card-body">
+            <span class="tag">Smart Home</span>
+            <h3>Smart Homes and the Future of Internet</h3>
+            <p>
+              How the Matter protocol and 6GHz bands are revolutionizing how our
+              devices talk to each other seamlessly.
+            </p>
+            <div class="card-footer">
+              <div class="author-info">
+                James Wilson <span class="date">• Oct 08</span>
+              </div>
+              <a href="./4042.html" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="blog-card">
+          <div class="card-img">
+            <img src="./assets/b2.webp" alt="Broadband" />
+          </div>
+          <div class="card-body">
+            <span class="tag">Internet</span>
+            <h3>Understanding Broadband vs Fiber Internet</h3>
+            <p>
+              Not all high-speed connections are created equal. We break down
+              the technical differences you need to know.
+            </p>
+            <div class="card-footer">
+              <div class="author-info">
+                Mark T. <span class="date">• Oct 05</span>
+              </div>
+              <a href="./4042.html" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="blog-card">
+          <div class="card-img">
+            <img src="./assets/b6.webp" alt="IoT" />
+          </div>
+          <div class="card-body">
+            <span class="tag">Networking</span>
+            <h3>Mesh vs Extenders: Which is Best for You?</h3>
+            <p>
+              Eliminate dead zones forever. A deep dive into modern mesh systems
+              compared to traditional range extenders.
+            </p>
+            <div class="card-footer">
+              <div class="author-info">
+                Sarah Chen <span class="date">• Sep 28</span>
+              </div>
+              <a href="./4042.html" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 6 -->
+        <article class="blog-card">
+          <div class="card-img">
+            <img src="./assets/b7.webp" alt="Troubleshooting" />
+          </div>
+          <div class="card-body">
+            <span class="tag">Internet Tips</span>
+            <h3>A Guide to Network Troubleshooting</h3>
+            <p>
+              Don't call support just yet! These 10 common issues can be fixed
+              at home in under five minutes.
+            </p>
+            <div class="card-footer">
+              <div class="author-info">
+                Alex Rivera <span class="date">• Sep 22</span>
+              </div>
+              <a href="./4042.html" class="read-more">Read More →</a>
+            </div>
+          </div>
+        </article>
+      </main>
+    </div>
+    <footer class="stkly-footer-wrapper">
+      <div class="stkly-container">
+        <div class="stkly-footer-grid">
+          <!-- Column 1: Logo & Newsletter -->
+          <div class="stkly-footer-col">
+            <div class="stkly-footer-logo">
+              <!-- Logo Placeholder: STACKLY text with an icon -->
+              <a href="./home2.html">
+                <svg
+                  width="150"
+                  height="38"
+                  viewBox="0 0 150 38"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 4L4 15L12 26L20 15L12 4Z"
+                    fill="var(--stkly-accent-orange)"
+                  />
+                  <text
+                    x="30"
+                    y="28"
+                    font-family="Poppins"
+                    font-weight="700"
+                    font-size="24"
+                    fill="white"
+                  >
+                    STACKLY.
+                  </text>
+                </svg></a
+              >
+            </div>
+            <p class="stkly-footer-desc">
+              Reliable high-speed internet and entertainment solutions designed
+              for modern homes and businesses.
+            </p>
+            <form class="stkly-newsletter-form" action="./4042.html">
+              <input
+                type="email"
+                class="stkly-newsletter-input"
+                placeholder="Your Email"
+                required
+              />
+
+              <button class="stkly-newsletter-btn" aria-label="Subscribe">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M13.025 1l-2.847 2.828 6.176 6.172h-16.354v4h16.354l-6.176 6.172 2.847 2.828 10.975-11z"
+                  />
+                </svg>
+              </button>
+            </form>
+            <p class="stkly-helper-text">
+              Subscribe today and get wonderful offers.
+            </p>
+          </div>
+
+          <!-- Column 2: Services -->
+          <div class="stkly-footer-col">
+            <h3 class="stkly-footer-heading">Links</h3>
+            <ul class="stkly-footer-links">
+              <li><a href="./home2.html">HOME</a></li>
+              <li><a href="./products.html">PRODUCTS</a></li>
+              <li><a href="./blog2.html">BLOG</a></li>
+              <li><a href="./dashboard.html">DASHBOARD</a></li>
+              <li><a href="./contact2.html">CONTACT</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Careers & Legal -->
+          <div class="stkly-footer-col">
+            <h3 class="stkly-footer-heading">Careers</h3>
+            <ul class="stkly-footer-links">
+              <li><a href="./4042.html">Affiliate Partners</a></li>
+              <li><a href="./4042.html">Media Centre</a></li>
+              <li><a href="./4042.html">Exclusive On STACKLY</a></li>
+              <li><a href="./4042.html">Press Newsroom</a></li>
+            </ul>
+
+            <div class="stkly-legal-box">
+              <h3 class="stkly-footer-heading">Legal</h3>
+              <ul class="stkly-footer-links">
+                <li><a href="./4042.html">Privacy Policy</a></li>
+                <li><a href="./4042.html">Terms of Service</a></li>
+                <li><a href="./4042.html">Account</a></li>
+                <li><a href="./4042.html">Cookie Preferences</a></li>
+                <li><a href="./4042.html">Legal Notices</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Column 4: App Download -->
+          <div class="stkly-footer-col">
+            <h3 class="stkly-footer-heading">Get Our App</h3>
+            <p class="stkly-app-desc">
+              Morbi tempor nulla sit amet bibendum maximus vestibulum. Donec
+              sollicitudin metus eu dictum consectetur.
+            </p>
+            <div class="stkly-app-buttons">
+              <a href="./4042.html" class="stkly-app-link">
+                <img
+                  src="./assets/pl.webp"
+                  alt="Get it on Google Play"
+                  class="stkly-app-badge"
+                />
+              </a>
+              <a href="./4042.html" class="stkly-app-link">
+                <img
+                  src="./assets/ip.webp"
+                  alt="Download on the App Store"
+                  class="stkly-app-badge"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider and Copyright Bar -->
+        <div class="stkly-footer-divider"></div>
+
+        <div class="stkly-footer-bottom">
+          <div class="stkly-copyright">
+            © 2026 STACKLY Network Solutions. All Rights Reserved
+          </div>
+
+          <div class="stkly-social-row">
+            <!-- Facebook -->
+            <a href="./4042.html" class="stkly-social-icon" title="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"
+                />
+              </svg>
+            </a>
+            <!-- Pinterest -->
+            <a href="./4042.html" class="stkly-social-icon" title="Pinterest">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.091.379-.293 1.191-.333 1.353-.053.214-.174.259-.401.154-1.496-.697-2.43-2.885-2.43-4.643 0-3.78 2.746-7.252 7.919-7.252 4.158 0 7.391 2.963 7.391 6.923 0 4.131-2.604 7.455-6.22 7.455-1.215 0-2.356-.631-2.746-1.376l-.748 2.853c-.271 1.033-1.002 2.329-1.492 3.127 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"
+                />
+              </svg>
+            </a>
+            <!-- Instagram -->
+            <a href="./4042.html" class="stkly-social-icon" title="Instagram">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                />
+              </svg>
+            </a>
+            <!-- Youtube -->
+            <a href="./4042.html" class="stkly-social-icon" title="YouTube">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Support Button -->
+      <!-- <button class="stkly-support-btn" aria-label="Support">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 6c-3.313 0-6 2.687-6 6s2.687 6 6 6 6-2.687 6-6-2.687-6-6-6zm0 10c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm1-4c0 .552-.448 1-1 1s-1-.448-1-1 .448-1 1-1 1 .448 1 1z"
+          />
+        </svg>
+      </button> -->
+    </footer>
+    <script src="./nav2.js"></script>
+    <script>
+      // Simple script to generate floating particles in the hero
+      window.onload = () => {
+        const particlesContainer = document.getElementById("particles");
+        const particleCount = 20;
+
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement("span");
+          particle.className = "particle";
+
+          const size = Math.random() * 20 + 5 + "px";
+          particle.style.width = size;
+          particle.style.height = size;
+
+          particle.style.left = Math.random() * 100 + "%";
+          particle.style.top = Math.random() * 100 + "%";
+          particle.style.animationDelay = Math.random() * 10 + "s";
+          particle.style.animationDuration = Math.random() * 10 + 10 + "s";
+
+          particlesContainer.appendChild(particle);
+        }
+      };
+
+      // Filter button interaction simulation
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          filterBtns.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+        });
+      });
+    </script>
+  </body>
+</html>
