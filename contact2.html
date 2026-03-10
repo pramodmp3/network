@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact STACKLY | Premium Internet Solutions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./nav2.css" />
+    <link rel="stylesheet" href="./foot2.css" />
+    <style>
+      :root {
+        --primary-purple: #2f2a74;
+        --secondary-purple: #5b3c9d;
+        --accent-orange: #ff6a00;
+        --light-bg: #f5f5f7;
+        --dark-text: #1f1f2e;
+        --white: #ffffff;
+        --primary-gradient: linear-gradient(135deg, #ff7a18, #3b2e7e);
+        --form-bg: linear-gradient(160deg, #2f2a74 0%, #5b3c9d 100%);
+        --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        --shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: var(--light-bg);
+        color: var(--dark-text);
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fade-in {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+
+      /* Hero Section */
+      .hero {
+        position: relative;
+        width: 100%;
+        min-height: 450px;
+        padding: 100px 20px;
+        background-image: url("./assets/hero-banner.webp");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: var(--white);
+        text-align: center;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Gradient Overlay for Readability */
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--primary-gradient);
+        z-index: 1;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+      }
+
+      .hero-shapes span {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+        font-weight: 300;
+        line-height: 1.5;
+      }
+
+      /* Main Contact Layout */
+      .contact-container {
+        max-width: 1200px;
+        margin: -80px auto 80px;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Left Side: Form Card */
+      .form-card {
+        background: var(--form-bg);
+        border-radius: 40px;
+        padding: 50px 40px;
+        color: var(--white);
+        box-shadow: 0 30px 60px rgba(47, 42, 116, 0.3);
+        position: relative;
+      }
+
+      .label-text {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+      }
+
+      .label-text::before,
+      .label-text::after {
+        content: "";
+        width: 25px;
+        height: 10px;
+        background: var(--white);
+        border-radius: 10px;
+        margin: 0 10px;
+        opacity: 0.8;
+      }
+
+      .form-card h2 {
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        margin-bottom: 40px;
+        font-weight: 700;
+      }
+
+      .form-card h2 span {
+        text-decoration: underline;
+        text-decoration-color: var(--accent-orange);
+        text-underline-offset: 8px;
+      }
+
+      .input-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 20px 25px;
+        border-radius: 12px;
+        border: none;
+        background: var(--white);
+        font-size: 1rem;
+        color: var(--dark-text);
+        transition: var(--transition);
+      }
+
+      .form-group textarea {
+        min-height: 200px;
+      }
+
+      .btn-submit {
+        margin-top: 30px;
+        background: #1a1640; /* Darker purple matching ref */
+        color: var(--white);
+        border: none;
+        padding: 18px 45px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        transition: var(--transition);
+      }
+
+      .btn-submit:hover {
+        background: var(--accent-orange);
+        transform: translateY(-3px);
+      }
+
+      /* Right Side: Replicated Info Layout */
+      .info-wrapper {
+        position: relative;
+        min-height: 600px;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      /* The large background photo of people */
+      .info-bg-image {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 95%;
+        height: 85%;
+        background: url("./assets/ind6.webp") center/cover;
+        border-radius: 40px;
+        z-index: 1;
+      }
+
+      /* The white floating card */
+      .info-floating-card {
+        position: relative;
+        z-index: 5;
+        background: var(--white);
+        border-radius: 35px;
+        padding: 30px;
+        width: 85%;
+        margin-left: 0;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        transition: var(--transition);
+      }
+
+      .card-inner-image {
+        width: 100%;
+        height: 180px;
+        background: url("./assets/about1.webp") center/cover;
+        border-radius: 25px;
+        margin-bottom: 25px;
+      }
+
+      .address-text {
+        color: #666;
+        font-size: 1rem;
+        margin-bottom: 25px;
+        line-height: 1.6;
+        padding: 0 10px;
+      }
+
+      .social-row {
+        display: flex;
+        gap: 12px;
+        padding: 0 10px;
+      }
+
+      .social-item {
+        width: 42px;
+        height: 42px;
+        border: 1px solid #eaeaea;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px; /* Square as per ref */
+        color: #555;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .social-item:hover {
+        background: var(--accent-orange);
+        color: var(--white);
+        border-color: var(--accent-orange);
+      }
+
+      /* Back to top vertical text style from ref */
+      .back-top-vertical {
+        position: absolute;
+        right: -40px;
+        bottom: 100px;
+        transform: rotate(-90deg);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #d62b45; /* Reddish from ref */
+        font-weight: 700;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .back-top-vertical::after {
+        content: "";
+        width: 30px;
+        height: 2px;
+        background: #1a1640;
+      }
+
+      /* Map Section */
+      .map-section {
+        width: 100%;
+        height: 500px;
+        filter: grayscale(1);
+        transition: var(--transition);
+      }
+
+      .map-section:hover {
+        filter: grayscale(0);
+      }
+
+      .map-section iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      /* Media Queries */
+      @media (min-width: 768px) {
+        .input-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .form-group.full-width {
+          grid-column: span 2;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .contact-container {
+          grid-template-columns: 1.3fr 0.7fr;
+          gap: 50px;
+        }
+        .info-wrapper {
+          margin-top: 20px;
+        }
+      }
+
+      .icon-svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="stkly-main-navbar">
+      <div class="stkly-nav-wrapper">
+        <!-- Logo Section -->
+        <div class="stkly-logo-container">
+          <a href="./home2.html">
+            <img
+              src="./assets/logo.webp"
+              class="stkly-logo-img"
+              alt="STACKLY Logo"
+            />
+          </a>
+        </div>
+
+        <!-- Desktop Nav Links -->
+        <div class="stkly-nav-links" id="stkly-desktop-nav">
+          <div class="stkly-dropdown">
+            <a href="#" class="stkly-nav-item">
+              <svg
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+              HOME
+            </a>
+
+            <div class="stkly-dropdown-menu">
+              <a href="./index.html">HOME1</a>
+              <a href="./home2.html">HOME2</a>
+            </div>
+          </div>
+          <a href="./products.html" class="stkly-nav-item">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+            PRODUCTS
+          </a>
+          <a href="./blog2.html" class="stkly-nav-item">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            BLOG
+          </a>
+          <a href="./dashboard.html" class="stkly-nav-item">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 3v18h18" />
+              <path d="m19 9-5 5-4-4-3 3" />
+            </svg>
+            DASHBOARD
+          </a>
+          <a href="./contact2.html" class="stkly-nav-btn-contact">CONTACT</a>
+        </div>
+
+        <!-- Hamburger Button -->
+        <button
+          class="stkly-hamburger-toggle"
+          id="stkly-hamburger"
+          aria-label="Open navigation menu"
+        >
+          <span class="stkly-hamburger-inner"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Full Screen Mobile Overlay -->
+    <div class="stkly-mobile-overlay" id="stkly-overlay">
+      <!-- Dedicated Close (X) Button -->
+      <button
+        class="stkly-menu-close-btn"
+        id="stkly-close-btn"
+        aria-label="Close navigation menu"
+      >
+        <svg
+          width="34"
+          height="34"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <ul class="stkly-mobile-menu-items">
+        <li class="stkly-mobile-dropdown">
+          <a href="" class="stkly-mobile-link stkly-mobile-toggle">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            HOME
+          </a>
+
+          <ul class="stkly-mobile-submenu">
+            <li><a href="./index.html">HOME1</a></li>
+            <li><a href="./home2.html">HOME2</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="./products.html" class="stkly-mobile-link">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+            PRODUCTS
+          </a>
+        </li>
+        <li>
+          <a href="./blog2.html" class="stkly-mobile-link">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+              />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            BLOG
+          </a>
+        </li>
+        <li>
+          <a href="./dashboard.html" class="stkly-mobile-link">
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 3v18h18" />
+              <path d="m19 9-5 5-4-4-3 3" />
+            </svg>
+            DASHBOARD
+          </a>
+        </li>
+        <li>
+          <a
+            href="./contact2.html"
+            class="stkly-mobile-link stkly-mobile-link-contact"
+            >CONTACT</a
+          >
+        </li>
+      </ul>
+    </div>
+    <!-- Hero Section -->
+    <header class="hero">
+      <div class="hero-shapes" id="particles"></div>
+      <div class="hero-content">
+        <h1>CONTACT US</h1>
+        <p>
+          Latest News, Guides, and Technology Insights from the World of
+          Internet Connectivity
+        </p>
+      </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="contact-container">
+      <!-- Left: Form Card -->
+      <section class="form-card animate-fade-in" style="animation-delay: 0.1s">
+        <div class="label-text">Contact Us</div>
+        <h2>Book Your <span>Internet</span></h2>
+
+        <form action="./4042.html">
+          <div class="input-grid">
+            <div class="form-group">
+              <input
+                type="text"
+                placeholder="Name"
+                oninput="this.value = this.value.replace(/[0-9]/g, '')"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Email Address" required />
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="Subject" />
+            </div>
+            <div class="form-group">
+              <input type="number" placeholder="Phone" />
+            </div>
+            <div class="form-group full-width">
+              <textarea placeholder="Write Message..."></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            Get In Touch
+            <svg class="icon-svg" viewBox="0 0 24 24">
+              <path
+                d="M5 12h14m-7-7 7 7-7 7"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </form>
+      </section>
+
+      <!-- Right: Layered Info Card -->
+      <section
+        class="info-wrapper animate-fade-in"
+        style="animation-delay: 0.3s"
+      >
+        <!-- Background Image (Large sofa image) -->
+        <div class="info-bg-image"></div>
+
+        <!-- Foreground White Card -->
+        <div class="info-floating-card">
+          <div class="card-inner-image"></div>
+          <div class="address-text">
+            901 N Pitt Street., Suite Number 170<br />
+            Alexandria, USA
+          </div>
+          <div class="social-row">
+            <a href="./4042.html" class="social-item">
+              <svg class="icon-svg" viewBox="0 0 24 24">
+                <path
+                  d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                />
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-item">
+              <svg class="icon-svg" viewBox="0 0 24 24">
+                <path
+                  d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+                />
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-item">
+              <svg class="icon-svg" viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-item">
+              <svg class="icon-svg" viewBox="0 0 24 24">
+                <path
+                  d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"
+                />
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Vertical "BACK TOP" label from ref -->
+        <div
+          class="back-top-vertical"
+          onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+          style="cursor: pointer"
+        >
+          BACK TOP
+        </div>
+      </section>
+    </main>
+
+    <!-- Map Section -->
+    <section class="map-section">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d158857.7281068865!2d-0.2416815340623668!3d51.52877184089311!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon!5e0!3m2!1sen!2suk!4v1715858000000!5m2!1sen!2suk"
+        allowfullscreen=""
+        loading="lazy"
+      >
+      </iframe>
+    </section>
+    <footer class="stkly-footer-wrapper">
+      <div class="stkly-container">
+        <div class="stkly-footer-grid">
+          <!-- Column 1: Logo & Newsletter -->
+          <div class="stkly-footer-col">
+            <div class="stkly-footer-logo">
+              <!-- Logo Placeholder: STACKLY text with an icon -->
+              <a href="./home2.html">
+                <svg
+                  width="150"
+                  height="38"
+                  viewBox="0 0 150 38"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 4L4 15L12 26L20 15L12 4Z"
+                    fill="var(--stkly-accent-orange)"
+                  />
+                  <text
+                    x="30"
+                    y="28"
+                    font-family="Poppins"
+                    font-weight="700"
+                    font-size="24"
+                    fill="white"
+                  >
+                    STACKLY.
+                  </text>
+                </svg></a
+              >
+            </div>
+            <p class="stkly-footer-desc">
+              Reliable high-speed internet and entertainment solutions designed
+              for modern homes and businesses.
+            </p>
+            <form class="stkly-newsletter-form" action="./4042.html">
+              <input
+                type="email"
+                class="stkly-newsletter-input"
+                placeholder="Your Email"
+                required
+              />
+
+              <button class="stkly-newsletter-btn" aria-label="Subscribe">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M13.025 1l-2.847 2.828 6.176 6.172h-16.354v4h16.354l-6.176 6.172 2.847 2.828 10.975-11z"
+                  />
+                </svg>
+              </button>
+            </form>
+            <p class="stkly-helper-text">
+              Subscribe today and get wonderful offers.
+            </p>
+          </div>
+
+          <!-- Column 2: Services -->
+          <div class="stkly-footer-col">
+            <h3 class="stkly-footer-heading">Links</h3>
+            <ul class="stkly-footer-links">
+              <li><a href="./home2.html">HOME</a></li>
+              <li><a href="./products.html">PRODUCTS</a></li>
+              <li><a href="./blog2.html">BLOG</a></li>
+              <li><a href="./dashboard.html">DASHBOARD</a></li>
+              <li><a href="./contact2.html">CONTACT</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Careers & Legal -->
+          <div class="stkly-footer-col">
+            <h3 class="stkly-footer-heading">Careers</h3>
+            <ul class="stkly-footer-links">
+              <li><a href="./4042.html">Affiliate Partners</a></li>
+              <li><a href="./4042.html">Media Centre</a></li>
+              <li><a href="./4042.html">Exclusive On STACKLY</a></li>
+              <li><a href="./4042.html">Press Newsroom</a></li>
+            </ul>
+
+            <div class="stkly-legal-box">
+              <h3 class="stkly-footer-heading">Legal</h3>
+              <ul class="stkly-footer-links">
+                <li><a href="./4042.html">Privacy Policy</a></li>
+                <li><a href="./4042.html">Terms of Service</a></li>
+                <li><a href="./4042.html">Account</a></li>
+                <li><a href="./4042.html">Cookie Preferences</a></li>
+                <li><a href="./4042.html">Legal Notices</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Column 4: App Download -->
+          <div class="stkly-footer-col">
+            <h3 class="stkly-footer-heading">Get Our App</h3>
+            <p class="stkly-app-desc">
+              Morbi tempor nulla sit amet bibendum maximus vestibulum. Donec
+              sollicitudin metus eu dictum consectetur.
+            </p>
+            <div class="stkly-app-buttons">
+              <a href="./4042.html" class="stkly-app-link">
+                <img
+                  src="./assets/pl.webp"
+                  alt="Get it on Google Play"
+                  class="stkly-app-badge"
+                />
+              </a>
+              <a href="./4042.html" class="stkly-app-link">
+                <img
+                  src="./assets/ip.webp"
+                  alt="Download on the App Store"
+                  class="stkly-app-badge"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider and Copyright Bar -->
+        <div class="stkly-footer-divider"></div>
+
+        <div class="stkly-footer-bottom">
+          <div class="stkly-copyright">
+            © 2026 STACKLY Network Solutions. All Rights Reserved
+          </div>
+
+          <div class="stkly-social-row">
+            <!-- Facebook -->
+            <a href="./4042.html" class="stkly-social-icon" title="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"
+                />
+              </svg>
+            </a>
+            <!-- Pinterest -->
+            <a href="./4042.html" class="stkly-social-icon" title="Pinterest">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.091.379-.293 1.191-.333 1.353-.053.214-.174.259-.401.154-1.496-.697-2.43-2.885-2.43-4.643 0-3.78 2.746-7.252 7.919-7.252 4.158 0 7.391 2.963 7.391 6.923 0 4.131-2.604 7.455-6.22 7.455-1.215 0-2.356-.631-2.746-1.376l-.748 2.853c-.271 1.033-1.002 2.329-1.492 3.127 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"
+                />
+              </svg>
+            </a>
+            <!-- Instagram -->
+            <a href="./4042.html" class="stkly-social-icon" title="Instagram">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                />
+              </svg>
+            </a>
+            <!-- Youtube -->
+            <a href="./4042.html" class="stkly-social-icon" title="YouTube">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Support Button -->
+      <!-- <button class="stkly-support-btn" aria-label="Support">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm0 6c-3.313 0-6 2.687-6 6s2.687 6 6 6 6-2.687 6-6-2.687-6-6-6zm0 10c-2.206 0-4-1.794-4-4s1.794-4 4-4 4 1.794 4 4-1.794 4-4 4zm1-4c0 .552-.448 1-1 1s-1-.448-1-1 .448-1 1-1 1 .448 1 1z"
+          />
+        </svg>
+      </button> -->
+    </footer>
+    <script src="./nav2.js"></script>
+  </body>
+</html>
